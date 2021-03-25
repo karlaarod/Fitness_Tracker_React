@@ -1,10 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import { App } from "./components";
 
-ReactDOM.render(
-  <App />,
+const App = () => {
+  return (
+    <>
+      <h3>Hello world!</h3>
+    </>
+  );
+};
 
-  document.querySelector("#app")
-);
+export default App;
