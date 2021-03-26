@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactDom from 'react-dom';
 import {
-  BrowserRouter as Router,
   Route,
   useHistory,
   Switch,
@@ -17,25 +16,25 @@ const fetchUserData = async (token) => {
   return data;
 };
 
-// const fetchActivities = async () => {
-//   const {
-//     data: { activities},
-//   } = await callApi({
-//     url: "/activities",
-//   });
-//   return activities;
-// };
+const fetchActivities = async () => {
+  const {
+    data: { activities},
+  } = await callApi({
+    url: "/activities",
+  });
+  return activities;
+};
 
 const App = () => {
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState({});
-  // const [activities, setActivities] = useState([]);
+  const [activities, setActivities] = useState([]);
 
   useEffect(async () => {
-    // const activitiess = await fetchActivities();
-    // if (activities){ 
-    //   setActivities(activities);
-    // }
+    const activitiess = await fetchActivities();
+    if (activities){ 
+      setActivities(activities);
+    }
     if (!token) {
       setToken(localStorage.getItem("token"));
       return;
@@ -52,7 +51,12 @@ const App = () => {
       <h3>This is inside the app container</h3>
       <NavBar />
       <Routines />
-      <Activities />
+      <Route path="/activities">
+      <Activities 
+        activities = {activities}
+      />
+      {console.log('activity:', activities)}
+      </Route>
       <Dashboard />
       {/* <Route path="/login"> */}
         <Account action="login" setToken={setToken} setUserData={setUserData} />
