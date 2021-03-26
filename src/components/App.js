@@ -54,16 +54,22 @@ const App = () => {
       <Routines />
       <Activities />
       <Dashboard />
-      {/* <Route path="/login"> */}
-        <Account action="login" setToken={setToken} setUserData={setUserData} />
-      {/* </Route> */}
-      {/* <Route path="/register"> */}
+
+      <Route path="/login">
+        <Account 
+          action="login" 
+          setToken={setToken} 
+          setUserData={setUserData} />
+      </Route>
+      <Route path="/register">
         <Account
           action="register"
           setToken={setToken}
           setUserData={setUserData}
         />
-      {/* </Route> */}
+      </Route>
+
+     
     </>
   );
 };
