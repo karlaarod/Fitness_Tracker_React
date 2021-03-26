@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ReactDom from 'react-dom';
+import ReactDom from "react-dom";
 import {
   BrowserRouter as Router,
   Route,
@@ -29,47 +29,43 @@ const fetchUserData = async (token) => {
 const App = () => {
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState({});
+  const [isLoggedin, setIsLoggedIn] = useState(false);
   // const [activities, setActivities] = useState([]);
 
   useEffect(async () => {
-    // const activitiess = await fetchActivities();
-    // if (activities){ 
-    //   setActivities(activities);
-    // }
     if (!token) {
       setToken(localStorage.getItem("token"));
+      setIsLoggedIn(false);
       return;
     }
     const data = await fetchUserData(token);
     if (data && data.username) {
       setUserData(data);
-    }}, [token]);
+    }
+    const posts = await fetchPosts();
+    setPosts(posts);
+    console.log("Posts:", posts);
+  }, [token]);
+  console.log(`Token is: ${token}`);
 
-
+  console.log("userData", userData);
 
   return (
     <>
       <h3>This is inside the app container</h3>
-      <NavBar />
+      <NavBar
+        userData={userData}
+        setUserData={setUserData}
+        setToken={setToken} />
       <Routines />
       <Activities />
       <Dashboard />
-
       <Route path="/login">
-        <Account 
-          action="login" 
-          setToken={setToken} 
-          setUserData={setUserData} />
+        <Account action="login" setToken={setToken} />
       </Route>
       <Route path="/register">
-        <Account
-          action="register"
-          setToken={setToken}
-          setUserData={setUserData}
-        />
+        <Account action="register" setToken={setToken} />
       </Route>
-
-     
     </>
   );
 };

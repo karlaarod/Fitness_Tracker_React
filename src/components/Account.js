@@ -31,7 +31,7 @@ const Account = ({ action, setToken, setUserData }) => {
       setUsername("");
       setPassword("");
       setToken(token);
-      history.push("/dashboard");
+      history.push("/");
     }
   };
 
