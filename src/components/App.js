@@ -26,6 +26,7 @@ const fetchUserData = async (token) => {
 //   return activities;
 // };
 
+  
 const App = () => {
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState({});
