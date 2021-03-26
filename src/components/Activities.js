@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-const Activities = ({ activities }) => {
+const Activities = ( {activities} ) => {
   const history = useHistory();
+
+  console.log ('activities.js', activities)
 
   return (<>
     <h3>Activities</h3>
-    <div className= "activites-list">
-    { activities.length > 0 && activities ? (
+
+<div className= "activites-list">
+     { activities ? (
                 activities.map(( activity ) => (
-                    <div key= {activity._id} className= 'activity'>
+                    <div key= {activity.id} className= 'activity'>
                 <h5>{activity.name}</h5>
                 <div>Description: {activity.description} </div>
                 <button
                     onClick={() => {
-                    history.push(`/activities/${activity._id}`);
+                    history.push(`/activities/${activity.id}`);
                     }}>View Activity</button>
                     </div>
                     ))
@@ -24,6 +27,7 @@ const Activities = ({ activities }) => {
     </div>
   
   </>);
+
 };
 
 export default Activities;

@@ -7,7 +7,7 @@ import {
   Switch,
   Link,
 } from "react-router-dom";
-import { NavBar, Routines, Activities, Dashboard, Account } from ".";
+import { NavBar, Routines, Activities, Dashboard, Account } from "./";
 import { callApi } from "../api";
 
 
@@ -20,26 +20,24 @@ const fetchUserData = async (token) => {
   return data;
 };
 
-// const fetchActivities = async () => {
-//   const {
-//     data: { activities},
-//   } = await callApi({
-//     url: "/activities",
-//   });
-//   return activities;
-// };
+const fetchActivities = async () => {
+  const data = await callApi({
+    url: "/activities",
+  });
+  return data;
+};
 
 const App = () => {
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  // const [activities, setActivities] = useState([]);
+  const [activities, setActivities] = useState([]);
 
   useEffect(async () => {
-    // const activitiess = await fetchActivities();
-    // if (activities){
-    //   setActivities(activities);
-    // }
+    const activities = await fetchActivities();
+    if (activities){
+      setActivities(activities);
+    }
     if (!token) {
       setToken(localStorage.getItem("token"));
       setIsLoggedIn(false)
@@ -52,6 +50,8 @@ const App = () => {
   }, [token]);
   console.log(`Token is: ${token}`);
   console.log("userData", userData);
+  console.log('activities', activities)
+  
   
   return (
     <>
@@ -64,7 +64,9 @@ const App = () => {
       <Routines />
       </Route>
       <Route path ="/activities">
-      <Activities />
+      <Activities 
+      activities= {activities}
+      />
       </Route>
       <Route path = "/dashboard">
       <Dashboard />
