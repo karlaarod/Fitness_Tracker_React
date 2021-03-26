@@ -1,12 +1,6 @@
-import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useHistory,
-} from "react-router-dom";
-import { callApi } from "../api";
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { callApi } from '../api'
 
 const Account = ({ action, setToken, setUserData }) => {
   const [username, setUsername] = useState("");
@@ -62,10 +56,14 @@ const Account = ({ action, setToken, setUserData }) => {
 
       <div>
         {!isLogin ? (
+          <><div>Please create a password greater than 8 characters
+            <div><br></br></div>
+          </div>
           <div>
-            Do you have and account already? Log in
+            If you have and account already log in
             <Link to={`/${oppositeAction}`}> here!</Link>
           </div>
+          </>
         ) : (
           <div>
             Don't have and account yet? Sign up
