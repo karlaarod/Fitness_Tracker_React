@@ -20,7 +20,7 @@ const Account = ({ action, setToken, setUserData }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = await callApi({
-            url: `/users/${action}`,
+            url: `users/${action}`,
             body: { user: { username, password } },
             method: 'POST',
         });
