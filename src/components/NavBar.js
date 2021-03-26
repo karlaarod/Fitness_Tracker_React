@@ -15,7 +15,7 @@ const Navbar = ({ userData, setUserData, setToken }) => {
      <Link to={"/dashboard"}>Dashboard</Link>
     {/* //   : ""}</div> */}
     <div>
-      <Link to={"/myactivities"}> My Activities </Link>
+      <Link to={"/activities"}> Activities </Link>
     </div>
     {/* <div>
       {userData._id ? (

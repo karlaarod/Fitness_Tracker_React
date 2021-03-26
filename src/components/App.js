@@ -60,9 +60,15 @@ const App = () => {
         userData= {userData} 
         setToken={setToken} 
         setUserData={setUserData} />
+      <Route path = "/routines">
       <Routines />
+      </Route>
+      <Route path ="/activities">
       <Activities />
+      </Route>
+      <Route path = "/dashboard">
       <Dashboard />
+      </Route>
       <Route path="/login">
         <Account 
           action="login" 
