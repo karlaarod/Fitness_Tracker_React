@@ -8,10 +8,12 @@ import {
   Link,
 } from "react-router-dom";
 import { NavBar, Routines, Activities, Dashboard, Account } from ".";
+import { callApi } from "../api";
+
 
 const fetchUserData = async (token) => {
   const { data } = await callApi({
-    url: "/users/me",
+    url: "users/me",
     token,
   });
 
@@ -30,6 +32,7 @@ const fetchUserData = async (token) => {
 const App = () => {
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   // const [activities, setActivities] = useState([]);
 
   useEffect(async () => {
@@ -39,6 +42,7 @@ const App = () => {
     // }
     if (!token) {
       setToken(localStorage.getItem("token"));
+      setIsLoggedIn(false)
       return;
     }
     const data = await fetchUserData(token);
@@ -47,17 +51,23 @@ const App = () => {
     }
   }, [token]);
   console.log(`Token is: ${token}`);
-
   console.log("userData", userData);
+  
   return (
     <>
       <h3>This is inside the app container</h3>
-      <NavBar setToken={setToken} setUserData={setUserData} />
+      <NavBar 
+        userData= {userData} 
+        setToken={setToken} 
+        setUserData={setUserData} />
       <Routines />
       <Activities />
       <Dashboard />
       <Route path="/login">
-        <Account action="login" setToken={setToken} setUserData={setUserData} />
+        <Account 
+          action="login" 
+          setToken={setToken} 
+          setUserData={setUserData} />
       </Route>
       <Route path="/register">
         <Account

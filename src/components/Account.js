@@ -21,7 +21,7 @@ const Account = ({ action, setToken, setUserData }) => {
     event.preventDefault();
     const data = await callApi({
       url: `users/${action}`,
-      body: { user: { username, password } },
+      body: { username, password },
       method: "POST",
     });
     const token = data?.data?.token;
