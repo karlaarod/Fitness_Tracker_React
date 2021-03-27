@@ -1,23 +1,38 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
-
-const Routines = ({ routines}) => {
-  console.log("routines within routines component", routines);
-
-
-
+const Routines = ({ routines }) => {
+  console.log("routines", routines);
+  const allActivities = routines.map(routine => {
+    return routine.activities;
+  });
+  console.log("routines activities", allActivities);
   return (
     <>
       <h3> Routines</h3>
       <div className="routines-list">
         {routines ? (
-          routines.map((routine) => (
-            <div key={routine.id} className="routine">
-              <h4>{routine.name}</h4>
-              <div> Created by: {routine.creatorName}</div>
-              <div> Goal: {routine.goal}</div>
-            </div>
-          ))
+          routines.map(
+            ({ id, name, goal, creatorName, activities }) => (
+              <div key={id} className="routine">
+                <h4>{name}</h4>
+                <div> Created by: {creatorName}</div>
+                <div> Goal: {goal}</div>
+                {activities
+                  ?  activities.map(
+                      ({ id, name, description, duration, count }) => (
+                        <div key={id}>
+                          <ol> <li>Activities {name}: </li> </ol>
+                          <ul>
+                          <li>Description: {description}</li>
+                          <li>Duration: {duration}</li>
+                          <li>Count: {count} </li>
+                          </ul>
+                        </div>
+                      )
+                    )
+                  : null}
+              </div>
+            )
+          )
         ) : (
           <h5>No routines to display</h5>
         )}
@@ -25,5 +40,4 @@ const Routines = ({ routines}) => {
     </>
   );
 };
-
 export default Routines;

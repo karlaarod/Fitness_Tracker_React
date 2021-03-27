@@ -96,7 +96,8 @@ const App = () => {
          myRoutines= {myRoutines} />
       </Route>
       <Route path="/activities">
-        <Activities activities={activities} />
+        <Activities activities={activities}
+        userData={userData} />
       </Route>
       <Route path="/dashboard">
         <Dashboard 
