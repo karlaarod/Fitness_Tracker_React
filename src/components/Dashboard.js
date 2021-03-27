@@ -19,6 +19,13 @@ const Dashboard = ({ userData }) => {
       <h3> this is the Dashboard page</h3>
       <button
           onClick={() => {
+            history.push("/my-routines");
+          }}
+        >
+          My Routines
+        </button>
+      <button
+          onClick={() => {
             history.push("/create");
           }}
         >
