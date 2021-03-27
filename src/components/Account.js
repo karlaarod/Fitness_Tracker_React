@@ -18,7 +18,7 @@ const Account = ({ action, setToken }) => {
       body: { username, password },
       method: "POST",
     });
-    const token = data.token;
+    const token = data?.data?.token;
 
     if (token) {
       localStorage.setItem("token", token);
