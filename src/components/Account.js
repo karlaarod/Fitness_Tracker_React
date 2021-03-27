@@ -1,10 +1,8 @@
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { callApi } from "../api";
 
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { callApi } from '../api'
-
-
-const Account = ({ action, setToken, setUserData }) => {
+const Account = ({ action, setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const isLogin = action === "login";
@@ -13,7 +11,6 @@ const Account = ({ action, setToken, setUserData }) => {
   const oppositeAction = isLogin ? "register" : "login";
   const history = useHistory();
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = await callApi({
@@ -21,7 +18,7 @@ const Account = ({ action, setToken, setUserData }) => {
       body: { username, password },
       method: "POST",
     });
-    const token = data?.data?.token;
+    const token = data.token;
 
     if (token) {
       localStorage.setItem("token", token);
@@ -59,15 +56,18 @@ const Account = ({ action, setToken, setUserData }) => {
 
       <div>
         {!isLogin ? (
-          <><div>Please create a password greater than 8 characters
-            <div><br></br></div>
-          </div>
-          <div>
-            If you have and account already log in
-            <Link to={`/${oppositeAction}`}> here!</Link>
-          </div>
+          <>
+            <div>
+              Please create a password greater than 8 characters
+              <div>
+                <br></br>
+              </div>
+            </div>
+            <div>
+              If you have and account already log in
+              <Link to={`/${oppositeAction}`}> here!</Link>
+            </div>
           </>
-
         ) : (
           <div>
             Don't have and account yet? Sign up
