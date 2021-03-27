@@ -13,7 +13,7 @@ import { NavBar, Routines, Activities, Dashboard, Account } from ".";
 import { callApi } from "../api";
 
 const fetchUserData = async (token) => {
-  const  data  = await callApi({
+  const data = await callApi({
     url: "users/me",
     token,
   });
@@ -68,21 +68,18 @@ const App = () => {
       </Route>
       <Route path="/dashboard">
         <Dashboard 
-          userData = {userData}
-          token = {token}/>
+          userData={userData} 
+          token={token} />
       </Route>
       <Route path="/login">
         <Account 
           action="login" 
-          setToken={setToken} 
-          setUserData={setUserData} />
+          setToken={setToken} />
       </Route>
       <Route path="/register">
-        <Account
-          action="register"
-          setToken={setToken}
-          setUserData={setUserData}
-        />
+        <Account 
+          action="register" 
+          setToken={setToken} />
       </Route>
     </>
   );

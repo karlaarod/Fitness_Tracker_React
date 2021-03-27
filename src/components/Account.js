@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { callApi } from "../api";
 
-const Account = ({ action, setToken, setUserData }) => {
+const Account = ({ action, setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const isLogin = action === "login";
@@ -19,7 +19,7 @@ const Account = ({ action, setToken, setUserData }) => {
       method: "POST",
     });
     const token = data.token;
-      
+
     if (token) {
       localStorage.setItem("token", token);
       setUsername("");

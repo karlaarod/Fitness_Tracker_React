@@ -2,20 +2,18 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
 const Navbar = ({ userData, setUserData, setToken }) => {
-  console.log('nav id', userData.id)
+  console.log("nav id", userData.id);
   const history = useHistory();
 
   const logOut = () => {
-      localStorage.clear();
-      setUserData({});
-      setToken('');
-      history.push("/");
-  }
+    localStorage.clear();
+    setUserData({});
+    setToken("");
+    history.push("/");
+  };
   return (
     <nav className="navbar">
-      <div>{userData.id ?
-      <Link to={"/dashboard"}>Dashboard</Link>
-         : ""}</div>
+      <div>{userData.id ? <Link to={"/dashboard"}>Dashboard</Link> : ""}</div>
       <div>
         <Link to={"/activities"}> Activities </Link>
       </div>
@@ -27,13 +25,13 @@ const Navbar = ({ userData, setUserData, setToken }) => {
       )}
     </div> */}
       <div>
-         {userData.id ? ( 
-        <Link onClick={logOut} to="/">
-          Log Out
-        </Link>
-         ) : ( 
-         <Link to={"/login"}>Login/Register</Link>
-      )}
+        {userData.id ? (
+          <Link onClick={logOut} to="/">
+            Log Out
+          </Link>
+        ) : (
+          <Link to={"/login"}>Login/Register</Link>
+        )}
       </div>
       <div>
         <Link to={"/update"}>Edit Activities</Link>
@@ -42,5 +40,3 @@ const Navbar = ({ userData, setUserData, setToken }) => {
   );
 };
 export default Navbar;
-
-
