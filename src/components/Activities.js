@@ -1,3 +1,4 @@
+
 import React from "react";
 
 const Activities = ( {activities} ) => {
@@ -19,6 +20,7 @@ If no activities, display message */}
                     <div key= {activity.id} className= 'activity'>
                 <h4>{activity.name}</h4>
                 <div>Description: {activity.description} </div>
+
                     </div>
                     ))
                 ) : (
@@ -27,7 +29,5 @@ If no activities, display message */}
     </div>
   
   </>);
-
 };
-
 export default Activities;

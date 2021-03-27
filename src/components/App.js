@@ -27,6 +27,7 @@ const fetchActivities = async () => {
   return data;
 };
 
+  
 const App = () => {
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState({});
@@ -83,6 +84,7 @@ const App = () => {
           setToken={setToken}
           setUserData={setUserData}
         />
+
       </Route>
     </>
   );

@@ -11,6 +11,7 @@ const Navbar = ({ userData, setUserData, setToken }) => {
   };
   return (
     <nav className="navbar">
+
     {/* <div>{userData._id ? */}
      <Link to={"/dashboard"}>Dashboard</Link>
     {/* //   : ""}</div> */}
@@ -39,6 +40,7 @@ const Navbar = ({ userData, setUserData, setToken }) => {
     <div>
       <Link to={"/update"}>Edit Activities</Link>
     </div>
+
     </nav>
   );
 };
