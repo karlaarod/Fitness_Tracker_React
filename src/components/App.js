@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import ReactDom from "react-dom";
 import {
@@ -8,7 +7,6 @@ import {
   Switch,
   Link,
 } from "react-router-dom";
-
 
 import { NavBar, Routines, Activities, Dashboard, Account, CreateRoutines } from ".";
 
@@ -30,15 +28,13 @@ const fetchActivities = async () => {
   return data;
 };
 
-<
-const fetchRoutines = async() => {
+const fetchRoutines = async () => {
+  const routines = await callApi({
+    url: "routines"
+  });
+  return routines;
+};
 
-  const data = await callApi({
-    url: "routines",
-  })
-  return data;
-}
-=======
 
 
 const fetchMyRoutines = async (username, token) => {
@@ -48,15 +44,12 @@ const fetchMyRoutines = async (username, token) => {
   return routines;
 };
 
-
 const App = () => {
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState({});
   const [activities, setActivities] = useState([]);
-  const [routines, setRoutines ]= useState([])
   const [routines, setRoutines] = useState([])
   const [myRoutines, setMyRoutines] = useState([]);
-
 
   useEffect(async () => {
     const activities = await fetchActivities();
@@ -65,10 +58,6 @@ const App = () => {
       setActivities(activities);
       setRoutines(routines);
     }
-    const routines = await fetchRoutines();
-      if (routines){
-        setRoutines(routines);
-      }
     if (!token) {
       setToken(localStorage.getItem("token"));
       return;
@@ -97,18 +86,13 @@ const App = () => {
         userData={userData}
         setToken={setToken}
         setUserData={setUserData}
-
       />
-          <Route path = "/routines">
-      <Routines 
-      routines = {routines}
-      />
+      <Route path="/routines">
+        <Routines />
       </Route>
-      <Route path ="/activities">
-
-      <Activities 
-      activities= {activities}
-
+      <Route path="/activities">
+        <Activities activities={activities} />
+      </Route>
       <Route path="/dashboard">
         <Dashboard 
           userData={userData} 
