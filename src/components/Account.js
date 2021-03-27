@@ -1,6 +1,8 @@
+
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { callApi } from '../api'
+
 
 const Account = ({ action, setToken, setUserData }) => {
   const [username, setUsername] = useState("");
@@ -10,6 +12,7 @@ const Account = ({ action, setToken, setUserData }) => {
   const oppositeTitle = isLogin ? "Create Account" : "Login";
   const oppositeAction = isLogin ? "register" : "login";
   const history = useHistory();
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -64,6 +67,7 @@ const Account = ({ action, setToken, setUserData }) => {
             <Link to={`/${oppositeAction}`}> here!</Link>
           </div>
           </>
+
         ) : (
           <div>
             Don't have and account yet? Sign up
