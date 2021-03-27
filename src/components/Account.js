@@ -19,7 +19,7 @@ const Account = ({ action, setToken, setUserData }) => {
       method: "POST",
     });
     const token = data.token;
-
+      
     if (token) {
       localStorage.setItem("token", token);
       setUsername("");
