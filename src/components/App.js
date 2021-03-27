@@ -17,13 +17,13 @@ const fetchUserData = async (token) => {
     url: "users/me",
     token,
   });
-
+  console.log("fettttthclfhkdfslkgsdlkgnmsl",data)
   return data;
 };
 
 const fetchActivities = async () => {
   const data = await callApi({
-    url: "/activities",
+    url: "activities",
   });
   return data;
 };
