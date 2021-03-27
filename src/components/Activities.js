@@ -1,8 +1,7 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 const Activities = ({ activities, userData }) => {
-  // return an array of activities created
-  // return an array of activities created
+
   const history = useHistory();
 
   return (
