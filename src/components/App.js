@@ -8,7 +8,7 @@ import {
   Link,
 } from "react-router-dom";
 
-import { NavBar, Routines, Activities, Dashboard, Account, CreateRoutines } from ".";
+import { NavBar, Routines, Activities, Dashboard, Account, CreateRoutines, CreateActivities, MyRoutines } from ".";
 
 import { callApi } from "../api";
 
@@ -39,7 +39,7 @@ const fetchRoutines = async () => {
 
 const fetchMyRoutines = async (username, token) => {
   const routines = await callApi({
-    url: `users/:${username}/routines`, token
+    url: `users/${username}/routines`, token
   });
   return routines;
 };
@@ -88,7 +88,12 @@ const App = () => {
         setUserData={setUserData}
       />
       <Route path="/routines">
-        <Routines />
+        <Routines 
+         routines= {routines} />
+      </Route>
+      <Route path="/my-routines">
+        <MyRoutines 
+         myRoutines= {myRoutines} />
       </Route>
       <Route path="/activities">
         <Activities activities={activities} />
@@ -108,8 +113,13 @@ const App = () => {
           action="register" 
           setToken={setToken} />
       </Route>
-      <Route path="/create">
+      <Route path="/create-routine">
         <CreateRoutines 
+          token={token} 
+          userData={userData} />
+      </Route>
+      <Route path="/create-activity">
+        <CreateActivities
           token={token} 
           userData={userData} />
       </Route>

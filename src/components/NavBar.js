@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
 const Navbar = ({ userData, setUserData, setToken }) => {
-  console.log("nav id", userData.id);
+  console.log("user logged in ID:", userData.id);
   const history = useHistory();
 
   const logOut = () => {
@@ -17,6 +17,9 @@ const Navbar = ({ userData, setUserData, setToken }) => {
       <div>
         <Link to={"/activities"}> Activities </Link>
       </div>
+      <div>
+          <Link to={"/routines"}>Routines</Link>
+          </div>
       {/* <div>
       {userData._id ? (
         <Link to={"/create"}>Create</Link>
