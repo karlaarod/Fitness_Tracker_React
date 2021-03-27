@@ -4,21 +4,22 @@ import { useHistory } from "react-router-dom";
 const Activities = ( {activities} ) => {
   const history = useHistory();
 
-  console.log ('activities.js', activities)
+//   console.log ('activities.js', activities)
+
 
   return (<>
-    <h3>Activities</h3>
+    <h2>Activities</h2>
 
 <div className= "activites-list">
      { activities ? (
                 activities.map(( activity ) => (
                     <div key= {activity.id} className= 'activity'>
-                <h5>{activity.name}</h5>
+                <h4>{activity.name}</h4>
                 <div>Description: {activity.description} </div>
-                <button
+                {/* <button
                     onClick={() => {
-                    history.push(`/activities/${activity.id}`);
-                    }}>View Activity</button>
+                    histor .push(`/activities/${activity.id}`);
+                    }}>View Activity</button> */}
                     </div>
                     ))
                 ) : (
