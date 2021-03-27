@@ -11,29 +11,36 @@ const Navbar = ({ userData, setUserData, setToken }) => {
   };
   return (
     <nav className="navbar">
-      <div>{userData._id ? <Link to={"/dashboard"}>Dashboard</Link> : ""}</div>
-      <div>
-        <Link to={"/activities"}> My Activities </Link>
-      </div>
-      {/* <div>
-        {userData._id ? (
-          <Link to={"/create"}>Create</Link>
-        ) : (
-          <Link to={"/create-error"}></Link>
-        )}
-      </div> */}
-      <div>
-        {userData._id ? (
-          <Link onClick={logOut} to="/">
-            Log Out
-          </Link>
-        ) : (
-          <Link to={"/login"}>Login/Register</Link>
-        )}
-      </div>
-      {/* <div>
-        <Link to={"/update"}>Edit Activity</Link>
-      </div> */}
+
+    {/* <div>{userData._id ? */}
+     <Link to={"/dashboard"}>Dashboard</Link>
+    {/* //   : ""}</div> */}
+    <div>
+      <Link to={"/activities"}> Activities </Link>
+    </div>
+    {/* <div>
+      {userData._id ? (
+        <Link to={"/create"}>Create</Link>
+      ) : (
+        <Link to={"/create-error"}></Link>
+      )}
+    </div> */}
+    <div>
+      {/* {userData._id ? ( */}
+        <Link onClick={logOut} to="/">
+          Log Out
+        </Link>
+      {/* ) : ( */}
+        {/* <Link to={"/login"}>Login/Register</Link>
+      )} */}
+    </div>
+    <div>
+        <Link to={"/login"}>Login/Register</Link>
+    </div>
+    <div>
+      <Link to={"/update"}>Edit Activities</Link>
+    </div>
+
     </nav>
   );
 };

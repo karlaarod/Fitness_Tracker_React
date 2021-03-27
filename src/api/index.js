@@ -1,6 +1,5 @@
 export const BASE_URL = "http://fitnesstrac-kr.herokuapp.com/api/";
-// export const COHORT_NAME = "2010-USD-RM-WEB-PT";
-// export const API_URL = BASE_URL + COHORT_NAME;
+
 
 export const callApi = async ({ url, method, token, body }) => {
   console.log("callApi: ", { url, method, token, body });
@@ -23,6 +22,6 @@ export const callApi = async ({ url, method, token, body }) => {
     if (data.error) throw data.error;
     return data;
   } catch (error) {
-    console.error("ERROR: ", error);
+    console.error(`Error: : ${error.message}`);
   }
 };

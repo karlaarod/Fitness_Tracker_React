@@ -1,21 +1,26 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 
-const Activities = ({ activities }) => {
-  const history = useHistory();
+import React from "react";
+
+const Activities = ( {activities} ) => {
+
+
+//   console.log ('activities.js', activities)
+
+// return an array of activities created
 
   return (<>
-    <h3>Activities</h3>
-    <div className= "activites-list">
-    { activities.length > 0 && activities ? (
+    <h2>Activities</h2>
+
+<div className= "activites-list">
+{/* if activities exist map over and display activity name and description. 
+If no activities, display message */}
+
+     { activities ? (
                 activities.map(( activity ) => (
-                    <div key= {activity._id} className= 'activity'>
-                <h5>{activity.name}</h5>
+                    <div key= {activity.id} className= 'activity'>
+                <h4>{activity.name}</h4>
                 <div>Description: {activity.description} </div>
-                <button
-                    onClick={() => {
-                    history.push(`/activities/${activity._id}`);
-                    }}>View Activity</button>
+
                     </div>
                     ))
                 ) : (
@@ -25,5 +30,4 @@ const Activities = ({ activities }) => {
   
   </>);
 };
-
 export default Activities;

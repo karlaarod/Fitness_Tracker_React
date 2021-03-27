@@ -7,65 +7,84 @@ import {
   Switch,
   Link,
 } from "react-router-dom";
-import { NavBar, Routines, Activities, Dashboard, Account } from ".";
+import { NavBar, Routines, Activities, Dashboard, Account } from "./";
+import { callApi } from "../api";
+
 
 const fetchUserData = async (token) => {
   const { data } = await callApi({
-    url: "/users/me",
+    url: "users/me",
     token,
   });
+
   return data;
 };
 
-// const fetchActivities = async () => {
-//   const {
-//     data: { activities},
-//   } = await callApi({
-//     url: "/activities",
-//   });
-//   return activities;
-// };
+const fetchActivities = async () => {
+  const data = await callApi({
+    url: "/activities",
+  });
+  return data;
+};
 
   
 const App = () => {
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState({});
-  const [isLoggedin, setIsLoggedIn] = useState(false);
-  // const [activities, setActivities] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [activities, setActivities] = useState([]);
 
   useEffect(async () => {
+    const activities = await fetchActivities();
+    if (activities){
+      setActivities(activities);
+    }
     if (!token) {
       setToken(localStorage.getItem("token"));
-      setIsLoggedIn(false);
+      setIsLoggedIn(false)
       return;
     }
     const data = await fetchUserData(token);
     if (data && data.username) {
       setUserData(data);
     }
-    const posts = await fetchPosts();
-    setPosts(posts);
-    console.log("Posts:", posts);
   }, [token]);
   console.log(`Token is: ${token}`);
-
   console.log("userData", userData);
-
+  console.log('activities', activities)
+  
+  
   return (
     <>
       <h3>This is inside the app container</h3>
-      <NavBar
-        userData={userData}
-        setUserData={setUserData}
-        setToken={setToken} />
+      <NavBar 
+        userData= {userData} 
+        setToken={setToken} 
+        setUserData={setUserData} />
+      <Route path = "/routines">
       <Routines />
-      <Activities />
+      </Route>
+      <Route path ="/activities">
+      <Activities 
+      activities= {activities}
+      />
+      </Route>
+      <Route path = "/dashboard">
       <Dashboard />
+      </Route>
       <Route path="/login">
-        <Account action="login" setToken={setToken} />
+        <Account 
+          action="login" 
+          setToken={setToken} 
+          setUserData={setUserData} />
       </Route>
       <Route path="/register">
-        <Account action="register" setToken={setToken} />
+        <Account
+          action="register"
+          setToken={setToken}
+          setUserData={setUserData}
+        />
+
       </Route>
     </>
   );
