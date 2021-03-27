@@ -17,7 +17,7 @@ const fetchUserData = async (token) => {
     url: "users/me",
     token,
   });
-  console.log("fettttthclfhkdfslkgsdlkgnmsl",data)
+
   return data;
 };
 
@@ -28,28 +28,53 @@ const fetchActivities = async () => {
   return data;
 };
 
+const fetchRoutines = async () => {
+  const routines = await callApi({
+    url: `routines`
+  });
+  return routines;
+};
+
+const fetchMyRoutines = async (username, token) => {
+  const routines = await callApi({
+    url: `users/:${username}/routines`, token
+  });
+  return routines;
+};
+
 const App = () => {
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState({});
   const [activities, setActivities] = useState([]);
+  const [routines, setRoutines] = useState([])
+  const [myRoutines, setMyRoutines] = useState([]);
 
   useEffect(async () => {
     const activities = await fetchActivities();
-    if (activities) {
+    const routines = await fetchRoutines()
+    if (activities && routines) {
       setActivities(activities);
+      setRoutines(routines);
     }
     if (!token) {
       setToken(localStorage.getItem("token"));
       return;
     }
     const data = await fetchUserData(token);
+    const username =data.username;
+    const myRoutines = await fetchMyRoutines(username, token)
+    
     if (token) {
       setUserData(data);
+      console.log("logged in username for routines is:", username)
+      setMyRoutines(myRoutines)
     }
   }, [token]);
   console.log(`Token is: ${token}`);
-  console.log("userData is:", userData);
-  console.log("activities are:", activities);
+  console.log("userData for logged in user:", userData);
+  console.log("All activities are:", activities);
+  console.log("All Routines:", routines)
+  console.log("My routines are:", myRoutines)
 
   return (
     <>
