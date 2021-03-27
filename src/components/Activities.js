@@ -1,11 +1,26 @@
 import React from "react";
-
-const Activities = ({ activities }) => {
+import { Link, useHistory } from "react-router-dom";
+const Activities = ({ activities, userData }) => {
   // return an array of activities created
   // return an array of activities created
+  const history = useHistory();
 
   return (
     <>
+      <div>
+        {userData.id ? (
+          <button
+            onClick={() => {
+              history.push("/create-activity");
+            }}
+          >
+            Create New Activity
+          </button>
+        ) : (
+          ""
+        )}
+      </div>
+
       <h2>Activities</h2>
 
       <div className="activites-list">
