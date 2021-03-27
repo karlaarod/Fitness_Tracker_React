@@ -7,7 +7,9 @@ import {
   Switch,
   Link,
 } from "react-router-dom";
-import { NavBar, Routines, Activities, Dashboard, Account } from "./";
+
+import { NavBar, Routines, Activities, Dashboard, Account } from ".";
+
 import { callApi } from "../api";
 
 
@@ -27,11 +29,11 @@ const fetchActivities = async () => {
   return data;
 };
 
-  
 const App = () => {
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+
   const [activities, setActivities] = useState([]);
 
   useEffect(async () => {
@@ -53,6 +55,7 @@ const App = () => {
   console.log("userData", userData);
   console.log('activities', activities)
   
+
   
   return (
     <>
@@ -65,6 +68,7 @@ const App = () => {
       <Routines />
       </Route>
       <Route path ="/activities">
+
       <Activities 
       activities= {activities}
       />
@@ -84,7 +88,6 @@ const App = () => {
           setToken={setToken}
           setUserData={setUserData}
         />
-
       </Route>
     </>
   );
