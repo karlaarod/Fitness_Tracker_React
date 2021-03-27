@@ -18,7 +18,7 @@ const Account = ({ action, setToken }) => {
       body: { username, password },
       method: "POST",
     });
-    const token = data?.data?.token;
+    const token = data?.token;
 
     if (token) {
       localStorage.setItem("token", token);
@@ -27,6 +27,12 @@ const Account = ({ action, setToken }) => {
       setToken(token);
       history.push("/dashboard");
     }
+    // if (!token) {
+    //   localStorage.clear();
+    //   history.push("/");
+    //   // history.push(`/${action}`);
+     
+    // }
   };
 
   return (
