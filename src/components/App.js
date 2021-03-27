@@ -12,7 +12,6 @@ import { NavBar, Routines, Activities, Dashboard, Account } from ".";
 
 import { callApi } from "../api";
 
-
 const fetchUserData = async (token) => {
   const { data } = await callApi({
     url: "users/me",
@@ -32,18 +31,18 @@ const fetchActivities = async () => {
 const App = () => {
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [activities, setActivities] = useState([]);
 
   useEffect(async () => {
     const activities = await fetchActivities();
-    if (activities){
+    if (activities) {
       setActivities(activities);
     }
     if (!token) {
       setToken(localStorage.getItem("token"));
-      setIsLoggedIn(false)
+      setIsLoggedIn(false);
       return;
     }
     const data = await fetchUserData(token);
@@ -53,28 +52,24 @@ const App = () => {
   }, [token]);
   console.log(`Token is: ${token}`);
   console.log("userData", userData);
-  console.log('activities', activities)
-  
+  console.log("activities", activities);
 
-  
   return (
     <>
       <h3>This is inside the app container</h3>
-      <NavBar 
-        userData= {userData} 
-        setToken={setToken} 
-        setUserData={setUserData} />
-      <Route path = "/routines">
-      <Routines />
-      </Route>
-      <Route path ="/activities">
-
-      <Activities 
-      activities= {activities}
+      <NavBar
+        userData={userData}
+        setToken={setToken}
+        setUserData={setUserData}
       />
+      <Route path="/routines">
+        <Routines />
       </Route>
-      <Route path = "/dashboard">
-      <Dashboard />
+      <Route path="/activities">
+        <Activities activities={activities} />
+      </Route>
+      <Route path="/dashboard">
+        <Dashboard />
       </Route>
       <Route path="/login">
         <Account 
