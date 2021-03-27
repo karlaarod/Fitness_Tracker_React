@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { useHistory, Redirect } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { callApi } from "../api";
 import Textfield from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -7,7 +7,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const CreateRoutines = ({ token, userData }) => {
-  // const history = useHistory();
+  const history = useHistory();
   // const redirectSubmit = history.push("/create-error");
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
@@ -24,7 +24,14 @@ const CreateRoutines = ({ token, userData }) => {
     });
     console.log("New Routine:", data);
   };
-
+  if (!userData.id) {
+    return (
+      <div className="sign-in-message">
+        <h1>Please <Link to="/login">log in</Link> to create a new routine</h1>
+        
+      </div>
+    );
+  }
   return (
     <>
       <div>
