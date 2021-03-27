@@ -89,7 +89,8 @@ const App = () => {
       />
       <Route path="/routines">
         <Routines 
-         routines= {routines} />
+         routines= {routines}
+         userData ={userData} />
       </Route>
       <Route path="/my-routines">
         <MyRoutines 
