@@ -1,7 +1,10 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
+
+
 const Dashboard = ({ userData }) => {
+  const history = useHistory();
     if (!userData.id) {
         return (
           <div className="sign-in-message">
@@ -14,6 +17,13 @@ const Dashboard = ({ userData }) => {
     <>
       <div className="dashboard">{<h1>Hello, {userData.username}!</h1>}</div>
       <h3> this is the Dashboard page</h3>
+      <button
+          onClick={() => {
+            history.push("/create");
+          }}
+        >
+          Create New Routine
+        </button>
     </>
   );
 };

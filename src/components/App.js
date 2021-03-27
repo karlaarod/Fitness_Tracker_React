@@ -8,7 +8,7 @@ import {
   Link,
 } from "react-router-dom";
 
-import { NavBar, Routines, Activities, Dashboard, Account } from ".";
+import { NavBar, Routines, Activities, Dashboard, Account, CreateRoutines } from ".";
 
 import { callApi } from "../api";
 
@@ -105,6 +105,11 @@ const App = () => {
         <Account 
           action="register" 
           setToken={setToken} />
+      </Route>
+      <Route path="/create">
+        <CreateRoutines 
+          token={token} 
+          userData={userData} />
       </Route>
     </>
   );
