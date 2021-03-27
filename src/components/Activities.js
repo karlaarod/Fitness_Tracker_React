@@ -1,10 +1,7 @@
 import React from "react";
 
 const Activities = ( {activities} ) => {
-
-
-//   console.log ('activities.js', activities)
-
+  // return an array of activities created
 // return an array of activities created
 
   return (<>
@@ -29,5 +26,4 @@ If no activities, display message */}
   </>);
 
 };
-
 export default Activities;
