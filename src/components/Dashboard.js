@@ -26,10 +26,17 @@ const Dashboard = ({ userData }) => {
         </button>
       <button
           onClick={() => {
-            history.push("/create");
+            history.push("/create-routine");
           }}
         >
           Create New Routine
+        </button>
+        <button
+          onClick={() => {
+            history.push("/create-activity");
+          }}
+        >
+          Create New Activity
         </button>
     </>
   );
