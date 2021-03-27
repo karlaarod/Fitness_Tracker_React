@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import ReactDom from "react-dom";
 import {
@@ -7,7 +8,9 @@ import {
   Switch,
   Link,
 } from "react-router-dom";
-import { NavBar, Routines, Activities, Dashboard, Account } from "./";
+
+import { NavBar, Routines, Activities, Dashboard, Account } from ".";
+
 import { callApi } from "../api";
 
 
@@ -27,17 +30,31 @@ const fetchActivities = async () => {
   return data;
 };
 
+const fetchRoutines = async() => {
+
+  const data = await callApi({
+    url: "/routines",
+  })
+  return data;
+}
+
 const App = () => {
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [activities, setActivities] = useState([]);
+  const [routines, setRoutines ]= useState([])
+
 
   useEffect(async () => {
     const activities = await fetchActivities();
     if (activities){
       setActivities(activities);
     }
+    const routines = await fetchRoutines();
+      if (routines){
+        setRoutines(routines);
+      }
     if (!token) {
       setToken(localStorage.getItem("token"));
       setIsLoggedIn(false)
@@ -51,7 +68,9 @@ const App = () => {
   console.log(`Token is: ${token}`);
   console.log("userData", userData);
   console.log('activities', activities)
-  
+  // console.log('routines', routines)
+
+
   
   return (
     <>
@@ -61,9 +80,12 @@ const App = () => {
         setToken={setToken} 
         setUserData={setUserData} />
       <Route path = "/routines">
-      <Routines />
+      <Routines 
+      routines = {routines}
+      />
       </Route>
       <Route path ="/activities">
+
       <Activities 
       activities= {activities}
       />
