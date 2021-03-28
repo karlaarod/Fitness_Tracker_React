@@ -30,6 +30,15 @@ const MyRoutines = ({ myRoutines, userData, token, setMyRoutines }) => {
   if (!myRoutines) {
     return <h5>No routines to display</h5>;
   }
+  if (!userData.id) {
+    return (
+      <div className="sign-in-message">
+        <h1>
+          Please <Link to="/login">log in</Link> to view your routines
+        </h1>
+      </div>
+    );
+  }
 
   return (
     <>
