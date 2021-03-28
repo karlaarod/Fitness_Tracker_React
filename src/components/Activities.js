@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 const Activities = ({ activities, userData }) => {
-
   const history = useHistory();
 
   return (
@@ -31,6 +30,13 @@ If no activities, display message */}
             <div key={activity.id} className="activity">
               <h4>{activity.name}</h4>
               <div>Description: {activity.description} </div>
+              <button
+                onClick={() => {
+                  history.push("/update-activity");
+                }}
+              >
+                Edit Activity
+              </button>
             </div>
           ))
         ) : (

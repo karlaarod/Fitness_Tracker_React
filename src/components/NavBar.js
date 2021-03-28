@@ -13,32 +13,38 @@ const Navbar = ({ userData, setUserData, setToken }) => {
   };
   return (
     <nav className="navbar">
-      <div>{userData.id ? <Link to={"/dashboard"}>Dashboard</Link> : ""}</div>
+      <div>
+        <Link to={"/"}> Home </Link>
+      </div>
+      <div>
+        {userData.id ? (
+          <>
+            <div>
+              <Link to={"/my-routines"}> My Routines </Link>
+            </div>
+            <Link to={"/dashboard"}>Dashboard</Link>{" "}
+          </>
+        ) : (
+          ""
+        )}
+      </div>
       <div>
         <Link to={"/activities"}> Activities </Link>
       </div>
       <div>
-          <Link to={"/routines"}>Routines</Link>
-          </div>
-      {/* <div>
-      {userData._id ? (
-        <Link to={"/create"}>Create</Link>
-      ) : (
-        <Link to={"/create-error"}></Link>
-      )}
-    </div> */}
+        <Link to={"/routines"}>Routines</Link>
+      </div>
       <div>
-        {userData.id ? (<>
-          <Link onClick={logOut} to="/">
-            Log Out
-          </Link>
-          <div>
-          <Link to={"/update"}>Edit Activities</Link>
-          </div>
+        {userData.id ? (
+          <>
+            <Link onClick={logOut} to="/">
+              Log Out
+            </Link>
           </>
-        ) : (<>
-          <Link to={"/login"}>Login/Register</Link>
-        </>
+        ) : (
+          <>
+            <Link to={"/login"}>Login/Register</Link>
+          </>
         )}
       </div>
     </nav>

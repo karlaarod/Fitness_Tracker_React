@@ -60,6 +60,7 @@ const CreateRoutines = ({ routines,token, userData, setRoutines }) => {
             <FormControlLabel
               control={
                 <Checkbox
+                  isPublic={isPublic}
                   onChange={(event) => setIsPublic(event.currentTarget.checked)}
                 />
               }

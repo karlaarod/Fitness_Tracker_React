@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { callApi } from '../api';
+import { UpdateRoutine } from ".";
 
 
 const MyRoutines = ({ myRoutines, userData, token, setRoutines}) => {
@@ -33,6 +34,7 @@ console.log("myroutines userdatea",userData)
 if (!myRoutines){
   return <h5>No routines to display</h5>
 }
+
   return (
     <>
       <div>
@@ -73,10 +75,20 @@ if (!myRoutines){
                       </div>
                     )
                   )
+=
                 : (<div> No routines to display</div>)}
+//                    null}
                 <button
                 onClick={handleDelete}
                 >Delete Routine</button>
+                   <button
+                onClick={() => {
+                  history.push("/update-routine");
+                }}
+              >
+                Edit Routine
+              </button>
+
             </div>
           ))
         ) : (
