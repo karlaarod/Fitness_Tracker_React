@@ -18,24 +18,19 @@ const Navbar = ({ userData, setUserData, setToken }) => {
         <Link to={"/activities"}> Activities </Link>
       </div>
       <div>
-          <Link to={"/routines"}>Routines</Link>
-          </div>
-      {/* <div>
-      {userData._id ? (
-        <Link to={"/create"}>Create</Link>
-      ) : (
-        <Link to={"/create-error"}></Link>
-      )}
-    </div> */}
+        <Link to={"/routines"}>Routines</Link>
+      </div>
       <div>
-        {userData.id ? (<>
-          <Link onClick={logOut} to="/">
-            Log Out
-          </Link>
+        {userData.id ? (
+          <>
+            <Link onClick={logOut} to="/">
+              Log Out
+            </Link>
           </>
-        ) : (<>
-          <Link to={"/login"}>Login/Register</Link>
-        </>
+        ) : (
+          <>
+            <Link to={"/login"}>Login/Register</Link>
+          </>
         )}
       </div>
     </nav>
