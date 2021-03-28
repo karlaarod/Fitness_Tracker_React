@@ -99,8 +99,13 @@ const App = () => {
       <Route path="/routines">
         <Routines routines={routines} userData={userData} />
       </Route>
-      <Route path="/update-routine">
-        <UpdateRoutine routines={routines} userData={userData} token={token} />
+      <Route path="/update-routine/:routineId">
+        <UpdateRoutine
+          routines={routines}
+          userData={userData}
+          token={token}
+          myRoutines={myRoutines}
+        />
       </Route>
       <Route path="/my-routines">
         <MyRoutines

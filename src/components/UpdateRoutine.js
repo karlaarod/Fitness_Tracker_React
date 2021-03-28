@@ -1,26 +1,37 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { callApi } from "../api";
 import Textfield from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-const UpdateRoutines = ({ token, userData }) => {
+const UpdateRoutines = ({ token, userData, myRoutines }) => {
+  const { routineId } = useParams();
+  const routine = myRoutines.find((routine) => routineId === routine.id);
+  console.log("MY ROUTINES WITHIN UPDATE:", myRoutines);
+  console.log("routineId", routineId)
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
-  //   const [activity, setActivity] = useState([]);
   const [isPublic, setIsPublic] = useState(false);
+
+  //   const [activity, setActivity] = useState([]);
+  const history = useHistory();
+
+  // console.log("ROUTINE ID FROM USE PARAMS:", routineId ,"ROUTINE NAME FROM SINGLE ROUTINE VARIABLE:", routine.name);
+  console.log("routine const:", routine)
 
   const handleUpdate = async (event) => {
     event.preventDefault();
     const data = await callApi({
-      url: `/routines/${routine.id}`,
+      url: `routines/${routineId}`,
       body: { name, goal, isPublic },
       method: "PATCH",
       token,
     });
+    history.push("/dashboard");
   };
+
   if (!userData.id) {
     return (
       <div className="sign-in-message">
@@ -39,7 +50,7 @@ const UpdateRoutines = ({ token, userData }) => {
           <div>
             <Textfield
               type="text"
-              placeholder="Routine Name"
+              placeholder="NAME"
               value={name}
               onChange={(event) => {
                 setName(event.target.value);
@@ -49,7 +60,7 @@ const UpdateRoutines = ({ token, userData }) => {
           <div>
             <Textfield
               type="text"
-              placeholder="Routine Goal"
+              placeholder="GOAL"
               value={goal}
               onChange={(event) => {
                 setGoal(event.target.value);
