@@ -50,6 +50,9 @@ const Routines = ({ routines, userData }) => {
                     )
                   )
                 : null}
+                <button onClick={() => {
+                    history.push(`/routines/${id}`);
+                    }}> View Routine</button>
             </div>
           ))
         ) : (
