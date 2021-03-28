@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
+import {UpdateRoutine} from "."
 
 const MyRoutines = ({ myRoutines, userData}) => {
   console.log("MY routines within MyRoutines component", myRoutines);
@@ -46,6 +47,13 @@ const MyRoutines = ({ myRoutines, userData}) => {
                     )
                   )
                 : null}
+          <button
+          onClick={() => {
+            history.push("/update-routine");
+          }}
+        >
+          Edit Routine
+        </button>
             </div>
           ))
         ) : (

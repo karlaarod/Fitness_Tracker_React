@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-const UpdateRoutines = ({ token, userData, routine }) => {
+const UpdateRoutines = ({ token, userData}) => {
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
   //   const [activity, setActivity] = useState([]);
@@ -30,6 +30,8 @@ const UpdateRoutines = ({ token, userData, routine }) => {
       </div>
     );
   }
+
+  
 //   if(userData.id === routine.creatorId){}
   return (
     <>
