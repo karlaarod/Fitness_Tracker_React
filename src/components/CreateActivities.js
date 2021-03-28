@@ -1,29 +1,30 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { callApi } from "../api";
 import Textfield from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-
 const CreateActivities = ({ token, userData }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-
+  const history = useHistory();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = await callApi({
       url: "activities",
-      body: {name, description},
+      body: { name, description },
       method: "POST",
-      token
+      token,
     });
+    history.push("/activities");
     console.log("NEW ACTIVITY", data);
   };
   if (!userData.id) {
     return (
       <div className="sign-in-message">
-        <h1>Please <Link to="/login">log in</Link> to create a new activity</h1>
-        
+        <h1>
+          Please <Link to="/login">log in</Link> to create a new activity
+        </h1>
       </div>
     );
   }
@@ -50,7 +51,6 @@ const CreateActivities = ({ token, userData }) => {
                 setDescription(event.target.value);
               }}
             />
-            
           </div>
           <Button type="submit" variant="outlined" color="primary">
             Submit

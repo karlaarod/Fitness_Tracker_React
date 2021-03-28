@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory  } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { callApi } from "../api";
 import Textfield from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -21,6 +21,7 @@ const CreateRoutines = ({ token, userData }) => {
       method: "POST",
       token,
     });
+    history.push("/my-routines");
     console.log("New Routine:", data);
   };
   if (!userData.id) {
