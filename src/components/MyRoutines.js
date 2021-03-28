@@ -1,10 +1,39 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
+import { callApi } from '../api';
 import { UpdateRoutine } from ".";
 
-const MyRoutines = ({ myRoutines, userData }) => {
+
+const MyRoutines = ({ myRoutines, userData, token, setRoutines}) => {
   console.log("MY routines within MyRoutines component", myRoutines);
   const history = useHistory();
+  const routine = myRoutines.find((routine) => routine);
+// console.log("MY routines id", routine);
+
+
+const handleDelete = async (event) => {
+  event.preventDefault();
+  
+
+  const data = await callApi({
+    url:`/routines/${routine.id}`,
+    token: token,
+    method: 'DELETE'
+  });
+  if (data.success){
+    alert('Post Deleted!')
+    history.push('/dashboard')
+    setRoutines(...myRoutines)
+  } else {
+    alert(Error)
+  }
+}
+
+console.log("myroutines userdatea",userData)
+
+if (!myRoutines){
+  return <h5>No routines to display</h5>
+}
 
   return (
     <>
@@ -46,14 +75,20 @@ const MyRoutines = ({ myRoutines, userData }) => {
                       </div>
                     )
                   )
-                : null}
-              <button
+=
+                : (<div> No routines to display</div>)}
+//                    null}
+                <button
+                onClick={handleDelete}
+                >Delete Routine</button>
+                   <button
                 onClick={() => {
                   history.push("/update-routine");
                 }}
               >
                 Edit Routine
               </button>
+
             </div>
           ))
         ) : (

@@ -102,7 +102,10 @@ const App = () => {
       <Route path="/my-routines">
         <MyRoutines 
          myRoutines= {myRoutines}
-         userData ={userData} />
+         userData ={userData}
+         token = {token}
+         setRoutines = {setMyRoutines}
+         />
       </Route>
       <Route path="/activities">
         <Activities activities={activities}
@@ -125,8 +128,11 @@ const App = () => {
       </Route>
       <Route path="/create-routine">
         <CreateRoutines 
+          routines ={routines}
           token={token} 
-          userData={userData} />
+          userData={userData}
+          setRoutines= {setMyRoutines}
+           />
       </Route>
       <Route path="/create-activity">
         <CreateActivities
