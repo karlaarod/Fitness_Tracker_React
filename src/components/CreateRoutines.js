@@ -59,6 +59,7 @@ const CreateRoutines = ({ token, userData }) => {
             <FormControlLabel
               control={
                 <Checkbox
+                  isPublic={isPublic}
                   onChange={(event) => setIsPublic(event.currentTarget.checked)}
                 />
               }
