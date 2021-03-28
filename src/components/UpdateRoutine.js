@@ -7,10 +7,11 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const UpdateRoutines = ({ token, userData, myRoutines }) => {
-  const { routineId } = useParams();
+  let { routineId } = useParams();
+  routineId = parseInt(routineId, 10);
   const routine = myRoutines.find((routine) => routineId === routine.id);
   console.log("MY ROUTINES WITHIN UPDATE:", myRoutines);
-  console.log("routineId", routineId)
+  console.log("routineId", routine)
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
   const [isPublic, setIsPublic] = useState(false);
@@ -50,7 +51,7 @@ const UpdateRoutines = ({ token, userData, myRoutines }) => {
           <div>
             <Textfield
               type="text"
-              placeholder="NAME"
+              placeholder={routine.name}
               value={name}
               onChange={(event) => {
                 setName(event.target.value);
@@ -60,7 +61,7 @@ const UpdateRoutines = ({ token, userData, myRoutines }) => {
           <div>
             <Textfield
               type="text"
-              placeholder="GOAL"
+              placeholder={routine.goal}
               value={goal}
               onChange={(event) => {
                 setGoal(event.target.value);
