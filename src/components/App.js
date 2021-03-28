@@ -8,7 +8,7 @@ import {
   Link,
 } from "react-router-dom";
 
-import { NavBar, Routines, Activities, Dashboard, Account, CreateRoutines, CreateActivities, MyRoutines } from ".";
+import { NavBar, Routines, Activities, Dashboard, Account, CreateRoutines, CreateActivities, MyRoutines, UpdateRoutine } from ".";
 
 import { callApi } from "../api";
 
@@ -71,7 +71,8 @@ const App = () => {
       console.log("logged in username for routines is:", username)
       setMyRoutines(myRoutines)
     }
-  }, [token]);
+  }
+  , [token]);
   console.log(`Token is: ${token}`);
   console.log("userData for logged in user:", userData);
   console.log("All activities are:", activities);
@@ -91,6 +92,12 @@ const App = () => {
         <Routines 
          routines= {routines}
          userData ={userData} />
+      </Route>
+      <Route path="/update-routine">
+        <UpdateRoutine
+         routines= {routines}
+         userData ={userData}
+         token ={token} />
       </Route>
       <Route path="/my-routines">
         <MyRoutines 
