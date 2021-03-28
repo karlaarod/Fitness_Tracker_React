@@ -30,6 +30,7 @@ const UpdateRoutines = ({ token, userData, routine }) => {
       </div>
     );
   }
+//   if(userData.id === routine.creatorId){}
   return (
     <>
       <div>
