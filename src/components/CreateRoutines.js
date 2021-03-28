@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory  } from "react-router-dom";
 import { callApi } from "../api";
 import Textfield from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -11,6 +11,7 @@ const CreateRoutines = ({ token, userData }) => {
   const [goal, setGoal] = useState("");
   //   const [activity, setActivity] = useState([]);
   const [isPublic, setIsPublic] = useState(false);
+  const history = useHistory();
 
   const handleSubmit = async (event) => {
     event.preventDefault();

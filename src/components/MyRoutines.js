@@ -3,8 +3,8 @@ import { Link, useHistory } from "react-router-dom";
 
 const MyRoutines = ({ myRoutines, userData}) => {
   console.log("MY routines within MyRoutines component", myRoutines);
-
-
+  const history = useHistory();
+  
   return (
     <>
       <div>
