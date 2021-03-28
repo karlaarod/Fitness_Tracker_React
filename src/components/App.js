@@ -8,7 +8,17 @@ import {
   Link,
 } from "react-router-dom";
 
-import { NavBar, Routines, Activities, Dashboard, Account, CreateRoutines, CreateActivities, MyRoutines, UpdateRoutine } from ".";
+import {
+  NavBar,
+  Routines,
+  Activities,
+  Dashboard,
+  Account,
+  CreateRoutines,
+  CreateActivities,
+  MyRoutines,
+  UpdateRoutine,
+} from ".";
 
 import { callApi } from "../api";
 
@@ -30,16 +40,15 @@ const fetchActivities = async () => {
 
 const fetchRoutines = async () => {
   const routines = await callApi({
-    url: "routines"
+    url: "routines",
   });
   return routines;
 };
 
-
-
 const fetchMyRoutines = async (username, token) => {
   const routines = await callApi({
-    url: `users/${username}/routines`, token
+    url: `users/${username}/routines`,
+    token,
   });
   return routines;
 };
@@ -48,12 +57,12 @@ const App = () => {
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState({});
   const [activities, setActivities] = useState([]);
-  const [routines, setRoutines] = useState([])
+  const [routines, setRoutines] = useState([]);
   const [myRoutines, setMyRoutines] = useState([]);
 
   useEffect(async () => {
     const activities = await fetchActivities();
-    const routines = await fetchRoutines()
+    const routines = await fetchRoutines();
     if (activities && routines) {
       setActivities(activities);
       setRoutines(routines);
@@ -63,21 +72,20 @@ const App = () => {
       return;
     }
     const data = await fetchUserData(token);
-    const username =data.username;
-    const myRoutines = await fetchMyRoutines(username, token)
-    
+    const username = data.username;
+    const myRoutines = await fetchMyRoutines(username, token);
+
     if (token) {
       setUserData(data);
-      console.log("logged in username for routines is:", username)
-      setMyRoutines(myRoutines)
+      console.log("logged in username for routines is:", username);
+      setMyRoutines(myRoutines);
     }
-  }
-  , [token]);
+  }, [token]);
   console.log(`Token is: ${token}`);
   console.log("userData for logged in user:", userData);
   console.log("All activities are:", activities);
-  console.log("All Routines:", routines)
-  console.log("My routines are:", myRoutines)
+  console.log("All Routines:", routines);
+  console.log("My routines are:", myRoutines);
 
   return (
     <>
@@ -89,55 +97,41 @@ const App = () => {
         setUserData={setUserData}
       />
       <Route path="/routines">
-        <Routines 
-         routines= {routines}
-         userData ={userData} />
+        <Routines routines={routines} userData={userData} />
       </Route>
       <Route path="/update-routine">
-        <UpdateRoutine
-         routines= {routines}
-         userData ={userData}
-         token ={token} />
+        <UpdateRoutine routines={routines} userData={userData} token={token} />
       </Route>
       <Route path="/my-routines">
-        <MyRoutines 
-         myRoutines= {myRoutines}
-         userData ={userData}
-         token = {token}
-         setRoutines = {setMyRoutines}
-         />
+        <MyRoutines
+          myRoutines={myRoutines}
+          userData={userData}
+          token={token}
+          setRoutines={setMyRoutines}
+        />
       </Route>
       <Route path="/activities">
-        <Activities activities={activities}
-        userData={userData} />
+        <Activities activities={activities} userData={userData} />
       </Route>
       <Route path="/dashboard">
-        <Dashboard 
-          userData={userData} 
-          token={token} />
+        <Dashboard userData={userData} token={token} />
       </Route>
       <Route path="/login">
-        <Account 
-          action="login" 
-          setToken={setToken} />
+        <Account action="login" setToken={setToken} />
       </Route>
       <Route path="/register">
-        <Account 
-          action="register" 
-          setToken={setToken} />
+        <Account action="register" setToken={setToken} />
       </Route>
       <Route path="/create-routine">
-        <CreateRoutines 
-          routines ={routines}
-          token={token} 
+        <CreateRoutines
+          routines={routines}
+          token={token}
           userData={userData}
-          setRoutines= {setMyRoutines}
-           />
+          setMyRoutines={setMyRoutines}
+        />
       </Route>
       <Route path="/create-activity">
-        <CreateActivities
-          token={token} 
-          userData={userData} />
+        <CreateActivities token={token} userData={userData} />
       </Route>
     </>
   );
