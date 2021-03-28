@@ -1,29 +1,58 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
-const MyRoutines = ({ myRoutines}) => {
+const MyRoutines = ({ myRoutines, userData}) => {
   console.log("MY routines within MyRoutines component", myRoutines);
-
 
 
   return (
     <>
-      <h3> My Routines</h3>
+      <div>
+        {userData.id ? (
+          <button
+            onClick={() => {
+              history.push("/create-routine");
+            }}
+          >
+            Create New Routine
+          </button>
+        ) : (
+          ""
+        )}
+      </div>
+
+      <h3>My Routines</h3>
       <div className="routines-list">
         {myRoutines ? (
-          myRoutines.map((routine) => (
-            <div key={routine.id} className="routine">
-              <h4>{routine.name}</h4>
-              <div> Created by: {routine.creatorName}</div>
-              <div> Goal: {routine.goal}</div>
+          myRoutines.map(({ id, name, goal, creatorName, activities }) => (
+            <div key={id} className="routine">
+              <h4>{name}</h4>
+              <div> Created by: {creatorName}</div>
+              <div> Goal: {goal}</div>
+              {activities
+                ? activities.map(
+                    ({ id, name, description, duration, count }) => (
+                      <div key={id}>
+                        <ol>
+                          {" "}
+                          <li>Activities {name}: </li>{" "}
+                        </ol>
+                        <ul>
+                          <li>Description: {description}</li>
+                          <li>Duration: {duration}</li>
+                          <li>Count: {count} </li>
+                        </ul>
+                      </div>
+                    )
+                  )
+                : null}
             </div>
           ))
         ) : (
-          <h5>You haven't made any routines</h5>
+          <h5>No routines to display</h5>
         )}
       </div>
     </>
   );
 };
-
 export default MyRoutines;
