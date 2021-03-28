@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-const CreateRoutines = ({ routines,token, userData, setRoutines }) => {
+const CreateRoutines = ({ routines, token, userData, setRoutines }) => {
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
   //   const [activity, setActivity] = useState([]);
@@ -22,7 +22,6 @@ const CreateRoutines = ({ routines,token, userData, setRoutines }) => {
       token,
     });
     history.push("/my-routines");
-    setRoutines([...routines])
     console.log("New Routine:", data);
   };
   if (!userData.id) {

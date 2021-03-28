@@ -1,39 +1,44 @@
 import React from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { callApi } from '../api';
+import { callApi } from "../api";
 import { UpdateRoutine } from ".";
 
-
-const MyRoutines = ({ myRoutines, userData, token, setRoutines}) => {
+const MyRoutines = ({ myRoutines, userData, token, setMyRoutines }) => {
   console.log("MY routines within MyRoutines component", myRoutines);
   const history = useHistory();
   const routine = myRoutines.find((routine) => routine);
-// console.log("MY routines id", routine);
+  // console.log("MY routines id", routine);
 
+  const handleDelete = async (event) => {
+    event.preventDefault();
 
-const handleDelete = async (event) => {
-  event.preventDefault();
-  
+    const data = await callApi({
+      url: `/routines/${routine.id}`,
+      token: token,
+      method: "DELETE",
+    });
+    if (data.success) {
+      alert("Post Deleted!");
+      history.push("/dashboard");
+    } else {
+      alert(Error);
+    }
+  };
 
-  const data = await callApi({
-    url:`/routines/${routine.id}`,
-    token: token,
-    method: 'DELETE'
-  });
-  if (data.success){
-    alert('Post Deleted!')
-    history.push('/dashboard')
-    setRoutines(...myRoutines)
-  } else {
-    alert(Error)
+  console.log("myroutines userdatea", userData);
+
+  if (!myRoutines) {
+    return <h5>No routines to display</h5>;
   }
-}
-
-console.log("myroutines userdatea",userData)
-
-if (!myRoutines){
-  return <h5>No routines to display</h5>
-}
+  if (!userData.id) {
+    return (
+      <div className="sign-in-message">
+        <h1>
+          Please <Link to="/login">log in</Link> to view your routines
+        </h1>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -59,36 +64,32 @@ if (!myRoutines){
               <h4>{name}</h4>
               <div> Created by: {creatorName}</div>
               <div> Goal: {goal}</div>
-              {activities
-                ? activities.map(
-                    ({ id, name, description, duration, count }) => (
-                      <div key={id}>
-                        <ol>
-                          {" "}
-                          <li>Activities {name}: </li>{" "}
-                        </ol>
-                        <ul>
-                          <li>Description: {description}</li>
-                          <li>Duration: {duration}</li>
-                          <li>Count: {count} </li>
-                        </ul>
-                      </div>
-                    )
-                  )
-=
-                : (<div> No routines to display</div>)}
-//                    null}
-                <button
-                onClick={handleDelete}
-                >Delete Routine</button>
-                   <button
+              {activities ? (
+                activities.map(({ id, name, description, duration, count }) => (
+                  <div key={id}>
+                    <ol>
+                      {" "}
+                      <li>Activities {name}: </li>{" "}
+                    </ol>
+                    <ul>
+                      <li>Description: {description}</li>
+                      <li>Duration: {duration}</li>
+                      <li>Count: {count} </li>
+                    </ul>
+                  </div>
+                ))
+              ) : (
+                <div> No routines to display</div>
+              )}
+              {/* //                    null} */}
+              <button onClick={handleDelete}>Delete Routine</button>
+              <button
                 onClick={() => {
                   history.push("/update-routine");
                 }}
               >
                 Edit Routine
               </button>
-
             </div>
           ))
         ) : (
