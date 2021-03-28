@@ -79,13 +79,22 @@ const MyRoutines = ({ myRoutines, userData, token, setMyRoutines }) => {
                   </div>
                 ))
               ) : (
-                <div> No routines to display</div>
+                null
               )}
-              {/* //                    null} */}
               <button onClick={handleDelete}>Delete Routine</button>
               <button
                 onClick={() => {
-                  history.push("/update-routine");
+                  history.push(`update-routine/${id}/`);
+                  console.log(
+                    "ROUTINE ID:",
+                    id,
+                    "ROUTINE NAME:",
+                    name,
+                    "ROUTINE GOAL:",
+                    goal,
+                    "ROUTINE CREATOR NAME:",
+                    creatorName
+                  );
                 }}
               >
                 Edit Routine
