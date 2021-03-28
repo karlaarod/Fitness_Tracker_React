@@ -6,27 +6,26 @@ import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-const CreateRoutines = ({ token, userData }) => {
+const UpdateRoutines = ({ token, userData, routine }) => {
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
   //   const [activity, setActivity] = useState([]);
   const [isPublic, setIsPublic] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handleUpdate = async (event) => {
     event.preventDefault();
     const data = await callApi({
-      url: "routines",
+      url: `/routines/${routine.id}`,
       body: { name, goal, isPublic },
-      method: "POST",
+      method: "PATCH",
       token,
     });
-    console.log("New Routine:", data);
   };
   if (!userData.id) {
     return (
       <div className="sign-in-message">
         <h1>
-          Please <Link to="/login">log in</Link> to create a new routine
+          Please <Link to="/login">log in</Link> to update a routine
         </h1>
       </div>
     );
@@ -34,7 +33,7 @@ const CreateRoutines = ({ token, userData }) => {
   return (
     <>
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleUpdate}>
           <div>
             <Textfield
               type="text"
@@ -73,4 +72,4 @@ const CreateRoutines = ({ token, userData }) => {
   );
 };
 
-export default CreateRoutines;
+export default UpdateRoutines;
