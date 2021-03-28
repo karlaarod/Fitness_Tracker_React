@@ -32,9 +32,6 @@ const Navbar = ({ userData, setUserData, setToken }) => {
           <Link onClick={logOut} to="/">
             Log Out
           </Link>
-          <div>
-          <Link to={"/update"}>Edit Activities</Link>
-          </div>
           </>
         ) : (<>
           <Link to={"/login"}>Login/Register</Link>
