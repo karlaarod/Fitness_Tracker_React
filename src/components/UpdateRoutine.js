@@ -7,14 +7,20 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const UpdateRoutines = ({ token, userData, myRoutines }) => {
+  const { routineId } = useParams();
+  const routine = myRoutines.find((routine) => routineId === routine.id);
+  console.log("MY ROUTINES WITHIN UPDATE:", myRoutines);
+  console.log("routineId", routineId)
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
-  //   const [activity, setActivity] = useState([]);
   const [isPublic, setIsPublic] = useState(false);
+
+  //   const [activity, setActivity] = useState([]);
   const history = useHistory();
-  const { routineId } = useParams();
-  const routine = myRoutines.find((routine) => routine);
-  console.log("ROUTINE ID FROM USE PARAMS:", routineId);
+
+  // console.log("ROUTINE ID FROM USE PARAMS:", routineId ,"ROUTINE NAME FROM SINGLE ROUTINE VARIABLE:", routine.name);
+  console.log("routine const:", routine)
+
   const handleUpdate = async (event) => {
     event.preventDefault();
     const data = await callApi({
@@ -24,8 +30,8 @@ const UpdateRoutines = ({ token, userData, myRoutines }) => {
       token,
     });
     history.push("/dashboard");
-    
   };
+
   if (!userData.id) {
     return (
       <div className="sign-in-message">
@@ -44,7 +50,7 @@ const UpdateRoutines = ({ token, userData, myRoutines }) => {
           <div>
             <Textfield
               type="text"
-              placeholder={routine.name}
+              placeholder="NAME"
               value={name}
               onChange={(event) => {
                 setName(event.target.value);
@@ -54,7 +60,7 @@ const UpdateRoutines = ({ token, userData, myRoutines }) => {
           <div>
             <Textfield
               type="text"
-              placeholder={routine.goal}
+              placeholder="GOAL"
               value={goal}
               onChange={(event) => {
                 setGoal(event.target.value);
