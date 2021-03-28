@@ -13,7 +13,21 @@ const Navbar = ({ userData, setUserData, setToken }) => {
   };
   return (
     <nav className="navbar">
-      <div>{userData.id ? <Link to={"/dashboard"}>Dashboard</Link> : ""}</div>
+      <div>
+        <Link to={"/"}> Home </Link>
+      </div>
+      <div>
+        {userData.id ? (
+          <>
+            <div>
+              <Link to={"/my-routines"}> My Routines </Link>
+            </div>
+            <Link to={"/dashboard"}>Dashboard</Link>{" "}
+          </>
+        ) : (
+          ""
+        )}
+      </div>
       <div>
         <Link to={"/activities"}> Activities </Link>
       </div>
