@@ -19,8 +19,7 @@ const UpdateRoutines = ({ token, userData, myRoutines }) => {
   //   const [activity, setActivity] = useState([]);
   const history = useHistory();
 
-  // console.log("ROUTINE ID FROM USE PARAMS:", routineId ,"ROUTINE NAME FROM SINGLE ROUTINE VARIABLE:", routine.name);
-  console.log("routine const:", routine)
+  console.log("const routine is:", routine)
 
   const handleUpdate = async (event) => {
     event.preventDefault();

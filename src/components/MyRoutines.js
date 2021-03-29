@@ -3,21 +3,28 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { callApi } from "../api";
 import { UpdateRoutine } from ".";
 
-const MyRoutines = ({ myRoutines, userData, token, setMyRoutines, routines }) => {
+const MyRoutines = ({
+  myRoutines,
+  userData,
+  token,
+  setMyRoutines,
+  routines,
+}) => {
   console.log("MY routines within MyRoutines component", myRoutines);
   const history = useHistory();
-  const routine = myRoutines.find((routine) => routine);
-  console.log("MY routines id", routine);
-  
+
+  // console.log("MY routines id", routine);
+
   const handleDelete = async (event) => {
     event.preventDefault();
+    const routine = myRoutines.find((routine) => routine);
 
     const data = await callApi({
       url: `/routines/${routine.id}`,
       token: token,
       method: "DELETE",
     });
-    console.log("data deleted", data)
+    console.log("data deleted", data);
     if (data.success) {
       alert("Post Deleted!");
       history.push("/dashboard");
@@ -65,23 +72,23 @@ const MyRoutines = ({ myRoutines, userData, token, setMyRoutines, routines }) =>
               <h4>{name}</h4>
               <div> Created by: {creatorName}</div>
               <div> Goal: {goal}</div>
-              {activities ? (
-                activities.map(({ id, name, description, duration, count }) => (
-                  <div key={id}>
-                    <ol>
-                      {" "}
-                      <li>Activities {name}: </li>{" "}
-                    </ol>
-                    <ul>
-                      <li>Description: {description}</li>
-                      <li>Duration: {duration}</li>
-                      <li>Count: {count} </li>
-                    </ul>
-                  </div>
-                ))
-              ) : (
-                null
-              )}
+              {activities
+                ? activities.map(
+                    ({ id, name, description, duration, count }) => (
+                      <div key={id}>
+                        <ol>
+                          {" "}
+                          <li>Activities {name}: </li>{" "}
+                        </ol>
+                        <ul>
+                          <li>Description: {description}</li>
+                          <li>Duration: {duration}</li>
+                          <li>Count: {count} </li>
+                        </ul>
+                      </div>
+                    )
+                  )
+                : null}
               <button onClick={handleDelete}>Delete Routine</button>
               <button
                 onClick={() => {

@@ -18,6 +18,7 @@ import {
   CreateActivities,
   MyRoutines,
   UpdateRoutine,
+  AttachActivitiesToRoutines,
 } from ".";
 
 import { callApi } from "../api";
@@ -113,6 +114,7 @@ const App = () => {
           userData={userData}
           token={token}
           setRoutines={setMyRoutines}
+          activities={activities}
         />
       </Route>
       <Route path="/activities">
@@ -133,10 +135,20 @@ const App = () => {
           token={token}
           userData={userData}
           setMyRoutines={setMyRoutines}
+          activities={activities}
         />
       </Route>
       <Route path="/create-activity">
         <CreateActivities token={token} userData={userData} />
+      </Route>
+      <Route path="/attach-activities">
+        <AttachActivitiesToRoutines
+          routines={routines}
+          token={token}
+          userData={userData}
+          setRoutines={setRoutines}
+          activities={activities}
+        />
       </Route>
     </>
   );
