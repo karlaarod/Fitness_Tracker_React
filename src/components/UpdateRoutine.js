@@ -10,6 +10,8 @@ const UpdateRoutines = ({ token, userData, myRoutines }) => {
   let { routineId } = useParams();
   routineId = parseInt(routineId, 10);
   const routine = myRoutines.find((routine) => routineId === routine.id);
+
+
   console.log("MY ROUTINES WITHIN UPDATE:", myRoutines);
   console.log("routineId", routine)
   const [name, setName] = useState("");
@@ -20,6 +22,26 @@ const UpdateRoutines = ({ token, userData, myRoutines }) => {
   const history = useHistory();
 
   console.log("const routine is:", routine)
+
+  const handleDelete = async (event) => {
+    event.preventDefault();
+
+    const data = await callApi({
+      url: `/routines/${routineId}`,
+      token: token,
+      method: "DELETE",
+    });
+    console.log("data deleted", data);
+
+    if (data && data.success) {
+      alert("Post Deleted!");
+      history.push("/dashboard");
+
+    } else {
+      alert(Error);
+      history.push("/dashboard");
+    }
+  };
 
   const handleUpdate = async (event) => {
     event.preventDefault();
@@ -43,6 +65,9 @@ const UpdateRoutines = ({ token, userData, myRoutines }) => {
   }
 
   //   if(userData.id === routine.creatorId){}
+  if(!routine){
+    return null
+  }
   return (
     <>
       <div>
@@ -79,6 +104,7 @@ const UpdateRoutines = ({ token, userData, myRoutines }) => {
           <Button type="submit" variant="outlined" color="primary">
             Submit
           </Button>
+          <Button variant="outlined" color="primary"onClick={handleDelete}>Delete Routine</Button> 
         </form>
       </div>
     </>

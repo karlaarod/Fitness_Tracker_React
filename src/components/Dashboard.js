@@ -15,7 +15,6 @@ const Dashboard = ({ userData }) => {
   return (
     <>
       <div className="dashboard">{<h1>Hello, {userData.username}!</h1>}</div>
-      <h3> this is the Dashboard page</h3>
       <button
         onClick={() => {
           history.push("/my-routines");

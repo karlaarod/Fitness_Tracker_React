@@ -6,31 +6,45 @@ import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
+    // add activitiy to routines 
+
 
 const AttachActivitiesToRoutines = ({
-  routines,
+  activities,
   token,
   userData,
-  setRoutines,
-  activities,
+  myRoutines,
+  setRoutines
 }) => {
-  const [isPublic, setIsPublic] = useState(false);
   const [activity, setActivity] = useState([]);
   const history = useHistory();
+  const [duration, setDuration] = useState("");
+  const [count, setCount] = useState("");
 
+  
   const handleActivityChange = (event) => {
     setActivity(event.target.value);
+    console.log('activities', setActivity(event.target.value))
   };
+
+  const findActiviy = activities.filter((activity) => activity);
+  console.log('activities', findActiviy)
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const routine= myRoutines ? myRoutines.find((routine) => routine) : null;
+
     const data = await callApi({
-      url: "routines",
+      url: `/routine/${routine.id}/acitivities`,
       body: { activityId, count, duration },
       method: "POST",
       token,
     });
     history.push("/my-routines");
+
+    //updates routines to include changes
+    setRoutines([...routines])
     console.log("New Routines Activity:", data);
   };
   if (!userData.id) {
@@ -58,6 +72,22 @@ const AttachActivitiesToRoutines = ({
               ))}
             </select>
           </div>
+          <Textfield
+                  type="text"
+                  placeholder='Duration'
+                  value={duration}
+                  onChange={(event) => {
+                    setDuration(event.target.value);
+                  }}
+                />
+                <Textfield
+                  type="text"
+                  placeholder='Count'
+                  value={count}
+                  onChange={(event) => {
+                    setCount(event.target.value);
+                  }}
+                />
           <Button type="submit" variant="outlined" color="primary">
             Submit
           </Button>

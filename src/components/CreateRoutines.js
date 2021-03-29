@@ -25,8 +25,11 @@ const CreateRoutines = ({ routines, token, userData, setRoutines, activities }) 
       method: "POST",
       token,
     });
-    history.push("/my-routines");
+    history.push("/dashboard");
     console.log("New Routine:", data);
+
+    //updates routines to include changes
+    setRoutines([...routines])
   };
   if (!userData.id) {
     return (

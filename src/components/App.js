@@ -3,9 +3,6 @@ import ReactDom from "react-dom";
 import {
   BrowserRouter as Router,
   Route,
-  useHistory,
-  Switch,
-  Link,
 } from "react-router-dom";
 
 import {
@@ -97,6 +94,15 @@ const App = () => {
         setToken={setToken}
         setUserData={setUserData}
       />
+      <Route path="/dashboard">
+        <Dashboard userData={userData} token={token} />
+      </Route>
+      <Route path="/login">
+        <Account action="login" setToken={setToken} />
+      </Route>
+      <Route path="/register">
+        <Account action="register" setToken={setToken} />
+      </Route>
       <Route path="/routines">
         <Routines routines={routines} userData={userData} />
       </Route>
@@ -112,42 +118,29 @@ const App = () => {
         <MyRoutines
           myRoutines={myRoutines}
           userData={userData}
-          token={token}
-          setRoutines={setMyRoutines}
-          activities={activities}
         />
       </Route>
       <Route path="/activities">
         <Activities activities={activities} userData={userData} />
-      </Route>
-      <Route path="/dashboard">
-        <Dashboard userData={userData} token={token} />
-      </Route>
-      <Route path="/login">
-        <Account action="login" setToken={setToken} />
-      </Route>
-      <Route path="/register">
-        <Account action="register" setToken={setToken} />
       </Route>
       <Route path="/create-routine">
         <CreateRoutines
           routines={routines}
           token={token}
           userData={userData}
-          setMyRoutines={setMyRoutines}
           activities={activities}
         />
       </Route>
       <Route path="/create-activity">
         <CreateActivities token={token} userData={userData} />
       </Route>
-      <Route path="/attach-activities">
+      <Route path="/routine/:routineId/activities">
         <AttachActivitiesToRoutines
-          routines={routines}
+        activities={activities}
           token={token}
           userData={userData}
+          myRoutines= {myRoutines}
           setRoutines={setRoutines}
-          activities={activities}
         />
       </Route>
     </>

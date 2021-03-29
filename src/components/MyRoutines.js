@@ -1,43 +1,11 @@
 import React from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
-import { callApi } from "../api";
-import { UpdateRoutine } from ".";
+import { Link, useHistory } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
-const MyRoutines = ({
-  myRoutines,
-  userData,
-  token,
-  setMyRoutines,
-  routines,
-}) => {
+const MyRoutines = ({ myRoutines, userData }) => {
   console.log("MY routines within MyRoutines component", myRoutines);
   const history = useHistory();
 
-  // console.log("MY routines id", routine);
-
-  const handleDelete = async (event) => {
-    event.preventDefault();
-    const routine = myRoutines.find((routine) => routine);
-
-    const data = await callApi({
-      url: `/routines/${routine.id}`,
-      token: token,
-      method: "DELETE",
-    });
-    console.log("data deleted", data);
-    if (data.success) {
-      alert("Post Deleted!");
-      history.push("/dashboard");
-    } else {
-      alert(Error);
-    }
-  };
-
-  console.log("myroutines userdata", userData);
-
-  if (!myRoutines) {
-    return <h5>No routines to display</h5>;
-  }
   if (!userData.id) {
     return (
       <div className="sign-in-message">
@@ -50,20 +18,6 @@ const MyRoutines = ({
 
   return (
     <>
-      <div>
-        {userData.id ? (
-          <button
-            onClick={() => {
-              history.push("/create-routine");
-            }}
-          >
-            Create New Routine
-          </button>
-        ) : (
-          ""
-        )}
-      </div>
-
       <h3>My Routines</h3>
       <div className="routines-list">
         {myRoutines ? (
@@ -89,8 +43,9 @@ const MyRoutines = ({
                     )
                   )
                 : null}
-              <button onClick={handleDelete}>Delete Routine</button>
-              <button
+              <Button
+                variant="outlined"
+                color="primary"
                 onClick={() => {
                   history.push(`update-routine/${id}/`);
                   console.log(
@@ -106,11 +61,31 @@ const MyRoutines = ({
                 }}
               >
                 Edit Routine
-              </button>
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => {
+                  history.push(`routine/${id}/activities`);
+                }}
+              >
+                Add Activity
+              </Button>
             </div>
           ))
         ) : (
-          <h5>No routines to display</h5>
+          <>
+            <h2>No Routines</h2>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => {
+                history.push("/create-routine");
+              }}
+            >
+              Create New Routine
+            </Button>
+          </>
         )}
       </div>
     </>
