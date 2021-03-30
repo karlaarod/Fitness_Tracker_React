@@ -9,11 +9,10 @@ const CreateActivities = ({ token, userData, activities, setActivities }) => {
   const [description, setDescription] = useState("");
   const history = useHistory();
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (name && description){
+    if (name && description) {
       history.push("/activities");
     }
 
@@ -24,7 +23,7 @@ const CreateActivities = ({ token, userData, activities, setActivities }) => {
       token,
     });
 
-    setActivities([...activities, data])
+    setActivities([...activities, data]);
     history.push("/activities");
     console.log("NEW ACTIVITY", data);
   };

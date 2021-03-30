@@ -3,8 +3,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { callApi } from "../api";
 import Textfield from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+
 
 // add activity to routines
 
@@ -14,7 +13,6 @@ const AttachActivitiesToRoutines = ({
   token,
   userData,
   setMyRoutines,
-  setMyActivities,
 }) => {
   const [activity, setActivity] = useState({});
   const history = useHistory();

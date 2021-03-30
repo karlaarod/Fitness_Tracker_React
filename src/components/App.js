@@ -3,7 +3,9 @@ import ReactDom from "react-dom";
 import {
   BrowserRouter as Router,
   Route,
+  useHistory
 } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 import {
   NavBar,
@@ -16,6 +18,7 @@ import {
   MyRoutines,
   UpdateRoutine,
   AttachActivitiesToRoutines,
+  UpdateRoutinesActivities
 } from ".";
 
 import { callApi } from "../api";
@@ -51,13 +54,6 @@ const fetchMyRoutines = async (username, token) => {
   return routines;
 };
 
-// const fetchMyActivities = async (username, token) => {
-//   const activities = await callApi({
-//     url: `users/${username}/activities`,
-//     token,
-//   });
-//   return activities;
-// }; 
 
 const App = () => {
   const [token, setToken] = useState("");
@@ -65,7 +61,7 @@ const App = () => {
   const [activities, setActivities] = useState([]);
   const [routines, setRoutines] = useState([]);
   const [myRoutines, setMyRoutines] = useState([]);
-  const [myActivities, setMyActivities] = useState([]);
+  const history = useHistory();
 
 
   useEffect(async () => {
@@ -83,13 +79,12 @@ const App = () => {
     const data = await fetchUserData(token);
     const username = data.username;
     const myRoutines = await fetchMyRoutines(username, token);
-    // const myActivities = await fetchMyActivities(username, token);
+
 
     if (token) {
       setUserData(data);
       console.log("logged in username for routines is:", username);
       setMyRoutines(myRoutines);
-      // setMyActivities(myActivities)
     }
   }, [token]);
   console.log(`Token is: ${token}`);
@@ -97,17 +92,43 @@ const App = () => {
   // console.log("All activities are:", activities);
   // console.log("All Routines:", routines);
   console.log("My routines are:", myRoutines);
-  console.log("My activities are:", myActivities);
 
 
   return (
     <>
-      <h2>Welcome {userData.username}</h2>
+
+      
       <NavBar
         userData={userData}
         setToken={setToken}
         setUserData={setUserData}
       />
+      
+      <Route exact path="/">
+      {userData.username? (
+        <>
+    
+       <h1>Fitness Tracker</h1>
+       <h2>Welcome {userData.username}</h2>
+        <Button type="submit" variant="outlined" color="primary"
+        onClick ={()=>{
+          history.push(`/routines`);
+        }}
+        >Explore</Button>
+        </>
+        ) : 
+        (
+          <>
+          <h1>Fitness Tracker</h1>
+        <Button type="submit" variant="outlined" color="primary"
+        onClick ={()=>{
+          history.push(`/routines`);
+        }}
+        >Explore</Button>
+        </>
+        )
+        }
+        </Route>
       <Route path="/dashboard">
         <Dashboard userData={userData} token={token} />
       </Route>
@@ -162,7 +183,13 @@ const App = () => {
           userData={userData}
           myRoutines= {myRoutines}
           setMyRoutines={setMyRoutines}
-          setMyActivities = {setMyActivities}
+        />
+      </Route>
+      <Route path="/edit-routine-activities/:routineActivityId">
+        <UpdateRoutinesActivities
+        token = {token}
+        myRoutines = {myRoutines}
+        setMyRoutines = {setMyRoutines}
         />
       </Route>
     </>

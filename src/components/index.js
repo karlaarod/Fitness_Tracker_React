@@ -9,3 +9,4 @@ export { default as MyRoutines } from "./MyRoutines";
 export { default as UpdateRoutine } from "./UpdateRoutine";
 export { default as CreateActivities } from "./CreateActivities";
 export { default as AttachActivitiesToRoutines } from "./AttachActivitiesToRoutines";
+export { default as UpdateRoutinesActivities} from "./UpdateRoutinesActivities"
