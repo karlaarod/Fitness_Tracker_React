@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { callApi } from "../api";
+import Button from "@material-ui/core/Button";
+
 
 const Account = ({ action, setToken }) => {
   const [username, setUsername] = useState("");
@@ -38,7 +40,7 @@ const Account = ({ action, setToken }) => {
   return (
     <div className="account-form">
       <h1> {title} </h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="login-form">
         <label>Username:</label>
         <input
           type="text"
@@ -57,7 +59,7 @@ const Account = ({ action, setToken }) => {
           required
           onChange={(event) => setPassword(event.target.value)}
         ></input>
-        <button type="submit"> {title} </button>
+        <Button type="submit" variant="outlined" color="primary" type="submit"> {title} </Button>
       </form>
 
       <div>

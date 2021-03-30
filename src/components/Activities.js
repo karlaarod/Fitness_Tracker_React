@@ -1,5 +1,8 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+
+
 const Activities = ({ activities, userData }) => {
   const history = useHistory();
 
@@ -7,13 +10,13 @@ const Activities = ({ activities, userData }) => {
     <>
       <div>
         {userData.id ? (
-          <button
+          <Button type="submit" variant="outlined" color="primary"
             onClick={() => {
               history.push("/create-activity");
             }}
           >
             Create New Activity
-          </button>
+          </Button>
         ) : (
           ""
         )}
@@ -30,13 +33,6 @@ If no activities, display message */}
             <div key={activity.id} className="activity">
               <h4>{activity.name}</h4>
               <div>Description: {activity.description} </div>
-              <button
-                onClick={() => {
-                  history.push("/update-activity");
-                }}
-              >
-                Edit Activity
-              </button>
             </div>
           ))
         ) : (

@@ -1,5 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router";
+import Button from "@material-ui/core/Button";
+
 
 const Routines = ({ routines, userData }) => {
   const history = useHistory();
@@ -13,13 +15,13 @@ const Routines = ({ routines, userData }) => {
     <>
       <div>
         {userData.id ? (
-          <button
+          <Button type="submit" variant="outlined" color="primary"
             onClick={() => {
               history.push("/create-routine");
             }}
           >
             Create New Routine
-          </button>
+          </Button>
         ) : (
           ""
         )}
@@ -30,17 +32,17 @@ const Routines = ({ routines, userData }) => {
         {routines ? (
           routines.map(({ id, name, goal, creatorName, activities }) => (
             <div key={id} className="routine">
-                <div className= "routine-body">
-              <h4>{name}</h4>
-              <div> Created by: {creatorName}</div>
-              <div> Goal: {goal}</div>
+              <div className="routine-body">
+                <h4>{name}</h4>
+                <div> Created by: {creatorName}</div>
+                <div> Goal: {goal}</div>
               </div>
               {activities
                 ? activities.map(
                     ({ id, name, description, duration, count }) => (
                       <span key={id} className="routine-activities">
-                          {" "}
-                          <li>Activities {name}: </li>{" "}
+                        {" "}
+                        <li>Activities {name}: </li>{" "}
                         <ul>
                           <li>Description: {description}</li>
                           <li>Duration: {duration}</li>
@@ -50,9 +52,6 @@ const Routines = ({ routines, userData }) => {
                     )
                   )
                 : null}
-                <button onClick={() => {
-                    history.push(`/routines/${id}`);
-                    }}> View Routine</button>
             </div>
           ))
         ) : (

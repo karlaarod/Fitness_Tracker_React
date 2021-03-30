@@ -3,7 +3,6 @@ import { Link, useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
 const MyRoutines = ({ myRoutines, userData }) => {
-  console.log("MY routines within MyRoutines component", myRoutines);
   const history = useHistory();
 
   if (!userData.id) {
@@ -30,7 +29,7 @@ const MyRoutines = ({ myRoutines, userData }) => {
             </Button>
       <div className="routines-list">
         {myRoutines ? (
-          myRoutines.map(({ id, name, goal, creatorName, activities }) => (
+          myRoutines.map(({ id, name, goal, creatorName, activities, routineActivityId}) => (
             <div key={id} className="routine">
               <h4>{name}</h4>
               <div> Created by: {creatorName}</div>
@@ -39,15 +38,23 @@ const MyRoutines = ({ myRoutines, userData }) => {
                 ? activities.map(
                     ({ id, name, description, duration, count }) => (
                       <div key={id}>
-                        <ol>
                           {" "}
                           <li>Activities {name}: </li>{" "}
-                        </ol>
+    
                         <ul>
                           <li>Description: {description}</li>
                           <li>Duration: {duration}</li>
                           <li>Count: {count} </li>
                         </ul>
+                        <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => {
+                  history.push(`/routine_activities/${routineActivityId}`);
+                }}
+              >
+                Edit Activity
+              </Button>
                       </div>
                     )
                   )

@@ -14,41 +14,35 @@ const AttachActivitiesToRoutines = ({
   token,
   userData,
   setMyRoutines,
-  setMyActivities
+  setMyActivities,
 }) => {
-
   const [activity, setActivity] = useState({});
   const history = useHistory();
   const [duration, setDuration] = useState("");
   const [count, setCount] = useState("");
+  const [routineActivities, setMyRoutineActivities] = useState({});
 
   let { routineId } = useParams();
-  
-  const activityId= 1; 
 
-const routine = myRoutines ? myRoutines.find((routine) => Number(routineId) === Number(routine.id)) : null;
-console.log('activities', activities)
 
-  // console.log('routineID', routineId)
+const singleRoutine = myRoutines
+    ? myRoutines.find((routine) => Number(routineId) === Number(routine.id))
+    : null;
 
- 
+
+  const singleActivity = activities.find((item) => item.name === activity);
+  // console.log("single activity", singleActivity);
+
+  const activityId= singleActivity? singleActivity.id : null ;
+
+
   const handleActivityChange = (event) => {
     setActivity(event.target.value);
-    console.log('activity change', activity)
+  
   };
-
-  const findActivity= activities.find(({id}) => {
-    Number(id) === Number(activity);
-  })
-
-
-  console.log('find activity ', findActivity )
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    
 
     const data = await callApi({
       url: `/routines/${routineId}/activities`,
@@ -57,11 +51,11 @@ console.log('activities', activities)
       token,
     });
 
-    history.push("/my-routines");
-    setMyRoutines([...myRoutines, data])
-    // console.log("New Routines Activity:", data);
+    history.push("/dashboard");
+    setMyRoutines([...myRoutines])
+    setMyRoutineActivities([...singleRoutine.activities, data]);
+    console.log("New Routines Activity:", data);
   };
-
 
   if (!userData.id) {
     return (
@@ -82,14 +76,14 @@ console.log('activities', activities)
                 --⬇️Select an activity to add⬇ --
               </option>
               {activities.map((activity) => (
-                <option key={activity.id} value={activity.id}>
+                <option key={activity.id} value={activity.name}>
                   {activity.name}
                 </option>
               ))}
             </select>
           </div>
           <Textfield
-            type="text"
+            type="number"
             placeholder="Duration"
             value={duration}
             onChange={(event) => {
@@ -97,7 +91,7 @@ console.log('activities', activities)
             }}
           />
           <Textfield
-            type="text"
+            type="number"
             placeholder="Count"
             value={count}
             onChange={(event) => {
