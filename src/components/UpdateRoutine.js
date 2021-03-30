@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-const UpdateRoutines = ({ token, userData, myRoutines }) => {
+const UpdateRoutines = ({ token, userData, myRoutines, setMyRoutines }) => {
   let { routineId } = useParams();
   routineId = parseInt(routineId, 10);
   const routine = myRoutines.find((routine) => routineId === routine.id);
@@ -36,6 +36,7 @@ const UpdateRoutines = ({ token, userData, myRoutines }) => {
     if (data && data.success) {
       alert("Post Deleted!");
       history.push("/dashboard");
+      setMyRoutines([...myRoutines, data])
 
     } else {
       alert(Error);
@@ -104,7 +105,7 @@ const UpdateRoutines = ({ token, userData, myRoutines }) => {
           <Button type="submit" variant="outlined" color="primary">
             Submit
           </Button>
-          <Button variant="outlined" color="primary"onClick={handleDelete}>Delete Routine</Button> 
+          <Button variant="outlined" color="primary" onClick={handleDelete}>Delete</Button> 
         </form>
       </div>
     </>

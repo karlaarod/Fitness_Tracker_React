@@ -19,6 +19,15 @@ const MyRoutines = ({ myRoutines, userData }) => {
   return (
     <>
       <h3>My Routines</h3>
+      <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => {
+                history.push("/create-routine");
+              }}
+            >
+              Create New Routine
+            </Button>
       <div className="routines-list">
         {myRoutines ? (
           myRoutines.map(({ id, name, goal, creatorName, activities }) => (
@@ -66,7 +75,7 @@ const MyRoutines = ({ myRoutines, userData }) => {
                 variant="outlined"
                 color="primary"
                 onClick={() => {
-                  history.push(`routine/${id}/activities`);
+                  history.push(`/add-activity/${id}`);
                 }}
               >
                 Add Activity
@@ -76,15 +85,7 @@ const MyRoutines = ({ myRoutines, userData }) => {
         ) : (
           <>
             <h2>No Routines</h2>
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => {
-                history.push("/create-routine");
-              }}
-            >
-              Create New Routine
-            </Button>
+
           </>
         )}
       </div>

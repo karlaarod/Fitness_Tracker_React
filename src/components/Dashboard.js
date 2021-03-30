@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+
 
 const Dashboard = ({ userData }) => {
   const history = useHistory();
@@ -15,27 +17,29 @@ const Dashboard = ({ userData }) => {
   return (
     <>
       <div className="dashboard">{<h1>Hello, {userData.username}!</h1>}</div>
-      <button
+      <Button
+                variant="outlined"
+                color="primary"
         onClick={() => {
           history.push("/my-routines");
         }}
       >
         My Routines
-      </button>
-      <button
+      </Button>
+      <Button variant="outlined" color="primary"
         onClick={() => {
           history.push("/create-routine");
         }}
       >
         Create New Routine
-      </button>
-      <button
+      </Button>
+      <Button variant="outlined" color="primary"
         onClick={() => {
           history.push("/create-activity");
         }}
       >
         Create New Activity
-      </button>
+      </Button>
     </>
   );
 };

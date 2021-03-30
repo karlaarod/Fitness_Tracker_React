@@ -34,6 +34,17 @@ button {
   padding: 10px;
 }
 
+nav{
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 10px;
+  background-color: white;
+  margin: 20px;
+  border-radius: 40px;
+}
+
 .title-page,
 .sign-in-message {
   text-align: center;
@@ -60,8 +71,7 @@ button {
   border-radius: 40px;
 }
 
-.account-form,
-form {
+.account-form {
   display: flex;
   position: relative;
   flex-direction: column;
@@ -117,7 +127,7 @@ textarea {
   justify-items: center;
   margin: 40px;
   gap: 15px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .routine, .activity {
@@ -125,6 +135,14 @@ textarea {
   height: 200px;
   padding: 20px;
   border: 2px solid black;
-  overflow: scroll;
   background-color: rgba(238, 234, 232, 0.473);
+  overflow: hidden;
+  overflow: scroll;
+
 }
+
+.routine-body{
+  overflow: hidden;
+
+}
+

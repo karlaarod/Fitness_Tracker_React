@@ -4,18 +4,27 @@ import { callApi } from "../api";
 import Textfield from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-const CreateActivities = ({ token, userData }) => {
+const CreateActivities = ({ token, userData, activities, setActivities }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const history = useHistory();
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (name && description){
+      history.push("/activities");
+    }
+
     const data = await callApi({
-      url: "activities",
+      url: "/activities",
       body: { name, description },
       method: "POST",
       token,
     });
+
+    setActivities([...activities, data])
     history.push("/activities");
     console.log("NEW ACTIVITY", data);
   };

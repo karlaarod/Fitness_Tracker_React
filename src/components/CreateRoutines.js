@@ -6,16 +6,13 @@ import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-const CreateRoutines = ({ routines, token, userData, setRoutines, activities }) => {
+const CreateRoutines = ({token, userData, myRoutines, setMyRoutines}) => {
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
   const [isPublic, setIsPublic] = useState(false);
-  const [activity, setActivity] = useState([])
   const history = useHistory();
 
-  const handleActivityChange = (event)=>{
-    setActivity(event.target.value)
-  }
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,12 +22,16 @@ const CreateRoutines = ({ routines, token, userData, setRoutines, activities }) 
       method: "POST",
       token,
     });
-    history.push("/dashboard");
+
+    //to show new routine 
+
+    setMyRoutines([...myRoutines, data])
+    history.push("/my-routines");
     console.log("New Routine:", data);
 
-    //updates routines to include changes
-    setRoutines([...routines])
+
   };
+
   if (!userData.id) {
     return (
       <div className="sign-in-message">
@@ -73,15 +74,6 @@ const CreateRoutines = ({ routines, token, userData, setRoutines, activities }) 
               label="Check if you wish this routine to be public"
               labelPlacement="start"
             />
-          </div>
-          <div>
-          <select onChange ={handleActivityChange}>
-            <option value="⬇️Select activity to add⬇️">
-              --⬇️Select an activity to add⬇ --
-            </option>
-            {activities.map((activity) => 
-            <option key={activity.id} value={activity.name}>{activity.name}</option>)}
-          </select>
           </div>
           <Button type="submit" variant="outlined" color="primary">
             Submit

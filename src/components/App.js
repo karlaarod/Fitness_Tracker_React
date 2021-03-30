@@ -51,17 +51,28 @@ const fetchMyRoutines = async (username, token) => {
   return routines;
 };
 
+// const fetchMyActivities = async (username, token) => {
+//   const activities = await callApi({
+//     url: `users/${username}/activities`,
+//     token,
+//   });
+//   return activities;
+// }; 
+
 const App = () => {
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState({});
   const [activities, setActivities] = useState([]);
   const [routines, setRoutines] = useState([]);
   const [myRoutines, setMyRoutines] = useState([]);
+  const [myActivities, setMyActivities] = useState([]);
+
 
   useEffect(async () => {
     const activities = await fetchActivities();
     const routines = await fetchRoutines();
-    if (activities && routines) {
+
+    if (activities || routines) {
       setActivities(activities);
       setRoutines(routines);
     }
@@ -72,22 +83,25 @@ const App = () => {
     const data = await fetchUserData(token);
     const username = data.username;
     const myRoutines = await fetchMyRoutines(username, token);
+    // const myActivities = await fetchMyActivities(username, token);
 
     if (token) {
       setUserData(data);
       console.log("logged in username for routines is:", username);
       setMyRoutines(myRoutines);
+      // setMyActivities(myActivities)
     }
   }, [token]);
   console.log(`Token is: ${token}`);
   console.log("userData for logged in user:", userData);
-  console.log("All activities are:", activities);
-  console.log("All Routines:", routines);
+  // console.log("All activities are:", activities);
+  // console.log("All Routines:", routines);
   console.log("My routines are:", myRoutines);
+  console.log("My activities are:", myActivities);
+
 
   return (
     <>
-      <h3>This is inside the app container</h3>
       <h2>Welcome {userData.username}</h2>
       <NavBar
         userData={userData}
@@ -112,6 +126,7 @@ const App = () => {
           userData={userData}
           token={token}
           myRoutines={myRoutines}
+          setMyRoutines={setMyRoutines}
         />
       </Route>
       <Route path="/my-routines">
@@ -125,22 +140,29 @@ const App = () => {
       </Route>
       <Route path="/create-routine">
         <CreateRoutines
-          routines={routines}
           token={token}
           userData={userData}
-          activities={activities}
+          myRoutines= {myRoutines}
+          setMyRoutines= {setMyRoutines}
         />
       </Route>
       <Route path="/create-activity">
-        <CreateActivities token={token} userData={userData} />
+        <CreateActivities 
+        token={token} 
+        userData={userData}
+        activities = {activities}
+        setActivities = {setActivities} 
+        />
       </Route>
-      <Route path="/routine/:routineId/activities">
+      <Route path="/add-activity/:routineId">
         <AttachActivitiesToRoutines
+        myRoutines ={myRoutines}
         activities={activities}
           token={token}
           userData={userData}
           myRoutines= {myRoutines}
-          setRoutines={setRoutines}
+          setMyRoutines={setMyRoutines}
+          setMyActivities = {setMyActivities}
         />
       </Route>
     </>

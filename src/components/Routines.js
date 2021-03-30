@@ -30,23 +30,23 @@ const Routines = ({ routines, userData }) => {
         {routines ? (
           routines.map(({ id, name, goal, creatorName, activities }) => (
             <div key={id} className="routine">
+                <div className= "routine-body">
               <h4>{name}</h4>
               <div> Created by: {creatorName}</div>
               <div> Goal: {goal}</div>
+              </div>
               {activities
                 ? activities.map(
                     ({ id, name, description, duration, count }) => (
-                      <div key={id}>
-                        <ol>
+                      <span key={id} className="routine-activities">
                           {" "}
                           <li>Activities {name}: </li>{" "}
-                        </ol>
                         <ul>
                           <li>Description: {description}</li>
                           <li>Duration: {duration}</li>
                           <li>Count: {count} </li>
                         </ul>
-                      </div>
+                      </span>
                     )
                   )
                 : null}
