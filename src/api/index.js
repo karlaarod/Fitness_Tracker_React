@@ -1,4 +1,4 @@
-export const BASE_URL = "http://fitnesstrac-kr.herokuapp.com/api/";
+export const BASE_URL = "https://fitnesstrac-kr.herokuapp.com/api/";
 
 
 export const callApi = async ({ url, method, token, body }) => {
@@ -16,6 +16,7 @@ export const callApi = async ({ url, method, token, body }) => {
     }
     console.log("request url: ", BASE_URL + url);
     console.log("options: ", options);
+
     const response = await fetch(BASE_URL + url, options);
     const data = await response.json();
     console.log("data: ", data);
