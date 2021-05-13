@@ -55,9 +55,11 @@ const UpdateRoutinesActivities = ({
 
   return (
     <>
+      <h2>Edit Routine Activity</h2>
+      
+      <div className="update-form">
       <form onSubmit={handleUpdate}>
         <div>
-          <h2>Edit Activity</h2>
           <Textfield
             type="number"
             placeholder="New Duration"
@@ -93,6 +95,7 @@ const UpdateRoutinesActivities = ({
           </Button>
         </div>
       </form>
+      </div>
     </>
   );
 };

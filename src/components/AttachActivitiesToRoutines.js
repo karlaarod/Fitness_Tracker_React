@@ -66,7 +66,7 @@ const singleRoutine = myRoutines
   }
   return (
     <>
-      <div>
+      <div className="update-form"> 
         <form onSubmit={handleSubmit}>
           <div>
             <select onChange={handleActivityChange}>

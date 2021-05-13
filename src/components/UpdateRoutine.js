@@ -69,6 +69,8 @@ const UpdateRoutines = ({ token, userData, myRoutines, setMyRoutines }) => {
   }
   return (
     <>
+          <h2>Update Routine</h2>
+
       <div className="update-form">
         <form onSubmit={handleUpdate}>
         <Card  >
