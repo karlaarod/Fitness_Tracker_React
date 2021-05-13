@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router";
-import Button from "@material-ui/core/Button";
+import { Button, Grid } from "@material-ui/core";
 
 
 const Routines = ({ routines, userData }) => {
@@ -13,9 +13,11 @@ const Routines = ({ routines, userData }) => {
   console.log("routines activities", allActivities);
   return (
     <>
+      <h1> Routines</h1>
       <div>
         {userData.id ? (
-          <Button type="submit" variant="outlined" color="primary"
+          <Button type="submit" variant="contained" color="default"
+          className="activities-routines-button"
             onClick={() => {
               history.push("/create-routine");
             }}
@@ -26,9 +28,14 @@ const Routines = ({ routines, userData }) => {
           ""
         )}
       </div>
-
-      <h3> Routines</h3>
       <div className="routines-list">
+      <Grid
+                container
+                className="routines-grid"
+                direction="row"
+                justify="center"
+                alignItems="flex-start"
+              >
         {routines ? (
           routines.map(({ id, name, goal, creatorName, activities }) => (
             <div key={id} className="routine">
@@ -37,26 +44,29 @@ const Routines = ({ routines, userData }) => {
                 <div> Created by: {creatorName}</div>
                 <div> Goal: {goal}</div>
               </div>
+              <footer className="routine-activities-footer">
               {activities
-                ? activities.map(
+                ?
+                activities.map(
                     ({ id, name, description, duration, count }) => (
                       <span key={id} className="routine-activities">
-                        {" "}
-                        <li>Activities {name}: </li>{" "}
-                        <ul>
+                        <h4>Routine Activity: {name} </h4>
+                        <ol>
                           <li>Description: {description}</li>
                           <li>Duration: {duration}</li>
                           <li>Count: {count} </li>
-                        </ul>
+                        </ol>
                       </span>
                     )
                   )
-                : null}
+                : ""}
+                </footer>
             </div>
           ))
         ) : (
           <h5>No routines to display</h5>
         )}
+        </Grid>
       </div>
     </>
   );

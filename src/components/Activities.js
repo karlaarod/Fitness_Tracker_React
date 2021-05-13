@@ -1,16 +1,22 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import { Paper} from "@material-ui/core";
 
 
 const Activities = ({ activities, userData }) => {
   const history = useHistory();
+  console.log('results from activities', activities)
 
   return (
     <>
+      <h1>Activities</h1>
+      <div className="activites-list">
       <div>
         {userData.id ? (
-          <Button type="submit" variant="outlined" color="primary"
+          <Button type="submit" 
+          variant="contained" color="default"
+          className="activities-routines-button"
             onClick={() => {
               history.push("/create-activity");
             }}
@@ -21,18 +27,16 @@ const Activities = ({ activities, userData }) => {
           ""
         )}
       </div>
-
-      <h2>Activities</h2>
-
-      <div className="activites-list">
         {/* if activities exist map over and display activity name and description. 
-If no activities, display message */}
+        If no activities, display message */}
 
         {activities ? (
           activities.map((activity) => (
             <div key={activity.id} className="activity">
+              <div className="activity-details">
               <h4>{activity.name}</h4>
               <div>Description: {activity.description} </div>
+              </div>
             </div>
           ))
         ) : (

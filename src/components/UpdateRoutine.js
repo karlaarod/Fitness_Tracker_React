@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { callApi } from "../api";
 import Textfield from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import {Button, Checkbox, FormControlLabel, Paper, Card} from "@material-ui/core";
 
 const UpdateRoutines = ({ token, userData, myRoutines, setMyRoutines }) => {
   let { routineId } = useParams();
@@ -71,11 +69,13 @@ const UpdateRoutines = ({ token, userData, myRoutines, setMyRoutines }) => {
   }
   return (
     <>
-      <div>
+      <div className="update-form">
         <form onSubmit={handleUpdate}>
+        <Card  >
           <div>
             <Textfield
               type="text"
+              variant="filled"
               placeholder={routine.name}
               value={name}
               onChange={(event) => {
@@ -86,14 +86,14 @@ const UpdateRoutines = ({ token, userData, myRoutines, setMyRoutines }) => {
           <div>
             <Textfield
               type="text"
+              variant="filled"
               placeholder={routine.goal}
               value={goal}
               onChange={(event) => {
                 setGoal(event.target.value);
               }}
             />
-            <FormControlLabel
-              control={
+            <FormControlLabel control={
                 <Checkbox
                   onChange={(event) => setIsPublic(event.currentTarget.checked)}
                 />
@@ -106,6 +106,7 @@ const UpdateRoutines = ({ token, userData, myRoutines, setMyRoutines }) => {
             Submit
           </Button>
           <Button variant="outlined" color="primary" onClick={handleDelete}>Delete</Button> 
+          </Card>
         </form>
       </div>
     </>

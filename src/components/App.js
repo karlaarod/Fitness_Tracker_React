@@ -87,47 +87,17 @@ const App = () => {
       setMyRoutines(myRoutines);
     }
   }, [token]);
-  console.log(`Token is: ${token}`);
-  console.log("userData for logged in user:", userData);
-  // console.log("All activities are:", activities);
-  // console.log("All Routines:", routines);
-  console.log("My routines are:", myRoutines);
 
 
   return (
     <>
-
-      
       <NavBar
         userData={userData}
         setToken={setToken}
         setUserData={setUserData}
       />
-      
       <Route exact path="/">
-      {userData.username? (
-        <>
-    
-       <h1>Fitness Tracker</h1>
-       <h2>Welcome {userData.username}</h2>
-        <Button type="submit" variant="outlined" color="primary"
-        onClick ={()=>{
-          history.push(`/routines`);
-        }}
-        >Explore</Button>
-        </>
-        ) : 
-        (
-          <>
-          <h1>Fitness Tracker</h1>
-        <Button type="submit" variant="outlined" color="primary"
-        onClick ={()=>{
-          history.push(`/routines`);
-        }}
-        >Explore</Button>
-        </>
-        )
-        }
+        <img src="Fitness.png"/>
         </Route>
       <Route path="/dashboard">
         <Dashboard userData={userData} token={token} />

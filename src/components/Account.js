@@ -53,12 +53,16 @@ const Account = ({ action, setToken }) => {
           required
           onChange={(event) => setPassword(event.target.value)}
         ></input>
+        {!isLogin? (
+          <>
         <label>Re-enter Password:</label>
         <input
           type="password"
           required
-          onChange={(event) => setPassword(event.target.value)}
-        ></input>
+          onChange={(event) => setPassword(event.target.value)}>
+        </input>
+          </>
+        ) :  ""}
         <Button type="submit" variant="outlined" color="primary" type="submit"> {title} </Button>
       </form>
 

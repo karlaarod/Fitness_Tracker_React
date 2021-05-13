@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import { Button, IconButton } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 const MyRoutines = ({ myRoutines, userData }) => {
   const history = useHistory();
@@ -21,17 +23,19 @@ const MyRoutines = ({ myRoutines, userData }) => {
 
   return (
     <>
-      <h3>My Routines</h3>
+      <h1>My Routines</h1>
       <Button
-        variant="outlined"
-        color="primary"
+          className="activities-routines-button"
+
         onClick={() => {
           history.push("/create-routine");
         }}
       >
-        Create New Routine
+        <AddIcon/>
+        Create Routine
       </Button>
-      <div className="routines-list">
+      <div className="my-routines-list">
+
         {myRoutines ? (
           myRoutines.map(
             ({
@@ -40,12 +44,34 @@ const MyRoutines = ({ myRoutines, userData }) => {
               goal,
               creatorName,
               activities,
-              routineActivityId,
             }) => (
-              <div key={id} className="routine">
+              <div key={id} className="my-routine">
+              <div className="my-routine-details">
                 <h4>{name}</h4>
                 <div> Created by: {creatorName}</div>
                 <div> Goal: {goal}</div>
+                </div>
+                <div className="my-routine-buttons">
+                <Button
+                  variant="inherit"
+                  color="primary"
+                  onClick={() => {
+                    history.push(`update-routine/${id}/`);
+                  }}
+                >
+                  Edit Routine
+                </Button>
+                <Button
+                  variant="inherit"
+                  color="primary"
+                  onClick={() => {
+                    history.push(`/add-activity/${id}`);
+                  }}
+                >
+                  Add Activity
+                </Button>
+                </div>
+                <div className="my-routine-activities">
                 {activities
                   ? activities.map(
                       ({
@@ -56,16 +82,16 @@ const MyRoutines = ({ myRoutines, userData }) => {
                         count,
                         routineActivityId,
                       }) => (
-                        <div key={id}>
-                          {" "}
-                          <li>Activities {name}: </li>{" "}
+                        <div key={id} className="my-routine-details">
+                        <h4>Routine Activity: {name} </h4>
                           <ul>
-                            <li>Description: {description}</li>
-                            <li>Duration: {duration}</li>
-                            <li>Count: {count} </li>
-                          </ul>
+                          <li>Description: {description}</li>
+                          <li>Duration: {duration}</li>
+                          <li>Count: {count} </li>
+                        </ul>
+                        <div className="my-activity-button">
                           <Button
-                            variant="outlined"
+                            variant="inherit"
                             color="primary"
                             onClick={() => {
                               history.push(
@@ -76,37 +102,11 @@ const MyRoutines = ({ myRoutines, userData }) => {
                             Edit Activity
                           </Button>
                         </div>
+                        </div>
                       )
                     )
                   : null}
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={() => {
-                    history.push(`update-routine/${id}/`);
-                    console.log(
-                      "ROUTINE ID:",
-                      id,
-                      "ROUTINE NAME:",
-                      name,
-                      "ROUTINE GOAL:",
-                      goal,
-                      "ROUTINE CREATOR NAME:",
-                      creatorName
-                    );
-                  }}
-                >
-                  Edit Routine
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={() => {
-                    history.push(`/add-activity/${id}`);
-                  }}
-                >
-                  Add Activity
-                </Button>
+                  </div>
               </div>
             )
           )
